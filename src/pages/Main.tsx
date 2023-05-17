@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import Drawer from '../components/Drawer';
+import Drawer from '../components/Drawer/Drawer';
 
 const Container = styled.div`
   display: flex;

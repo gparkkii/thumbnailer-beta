@@ -1,7 +1,8 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import CTAButton from '../Common/CTAButton';
-import TextInput from '../Common/TextInput';
+import ColorPicker from '../Form/ColorPicker';
+import CTAButton from '../Form/CTAButton';
+import TextInput from '../Form/TextInput';
 import Tab from './Tab';
 
 const Wrapper = styled.div`
@@ -38,7 +39,9 @@ const Drawer = () => {
     <Wrapper>
       <TabWrapper>
         <Tab label="크기">크기</Tab>
-        <Tab label="배경색">배경색</Tab>
+        <Tab label="배경색">
+          <ColorPicker name="backgroundColor" value="#000000" />
+        </Tab>
         <Tab label="문구">
           <TextInput name="title" placeholder="문구를 입력해주세요." />
         </Tab>

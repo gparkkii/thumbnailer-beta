@@ -80,7 +80,7 @@ img {
 }
 
 button {
-  background-color: transparent;
+  background: transparent;
   text-decoration: none;
   border: none;
   outline: none;
@@ -90,8 +90,24 @@ button {
 
 input {
   text-decoration: none;
-  background-color: none;
+  background: none;
   outline: none;
+  padding: 0;
+  border: none;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+  border: none;
+  width: 24px;
+  height: 24px;
+}
+
+input[type="color"]::-webkit-color-swatch {
+  padding: 0;
+  border: none;
+  width: 24px;
+  height: 24px;
 }
 
 input::-webkit-outer-spin-button,
@@ -104,8 +120,8 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   box-shadow: 0 0 0px 1000px transparent inset;
-  -webkit-transition: background-color 9999s ease-out;
-  transition: background-color 5000s ease-in-out 0s;
+  -webkit-transition: background 9999s ease-out;
+  transition: background 5000s ease-in-out 0s;
 }
 
 textarea {
