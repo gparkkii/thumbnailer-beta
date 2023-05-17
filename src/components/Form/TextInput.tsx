@@ -15,8 +15,6 @@ const StyledInput = styled.input`
   border: 1px solid ${({ theme }) => theme.colors.gray200};
   border-radius: 8px;
 
-  font-size: 16px;
-  line-height: 19px;
   color: ${({ theme }) => theme.colors.gray900};
 
   &::placeholder {

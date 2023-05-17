@@ -2,6 +2,7 @@ import React from 'react';
 import { styled } from 'styled-components';
 import ColorPicker from '../Form/ColorPicker';
 import CTAButton from '../Form/CTAButton';
+import Dropdown from '../Form/Dropdown';
 import LabelInput from '../Form/LabelInput';
 import TextInput from '../Form/TextInput';
 import Tab from './Tab';
@@ -44,6 +45,16 @@ const ButtonWrapper = styled.div`
   padding: 0px 20px;
 `;
 
+const FONT_OPTION = [
+  { label: 'Noto Sans', option: 'Noto Sans' },
+  { label: 'Noto Serif', option: 'Noto Serif, serif' },
+  { label: 'Gmarket Sans', option: 'GmarketSans' },
+  { label: 'Pretendard', option: 'Pretendard' },
+  { label: 'LINE SEED Sans', option: 'LINESeedKR' },
+  { label: 'Montserrat', option: 'Montserrat' },
+  { label: 'Poppins', option: 'Poppins' },
+];
+
 const Drawer = () => {
   return (
     <Wrapper>
@@ -64,7 +75,9 @@ const Drawer = () => {
         <Tab label="문구">
           <TextInput name="title" placeholder="문구를 입력해주세요." />
         </Tab>
-        <Tab label="텍스트">텍스트</Tab>
+        <Tab label="텍스트">
+          <Dropdown placeholder="폰트를 선택해주세요." options={FONT_OPTION} />
+        </Tab>
       </TabWrapper>
       <ButtonWrapper>
         <CTAButton label="다운로드" />

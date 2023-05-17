@@ -94,6 +94,11 @@ input {
   outline: none;
   padding: 0;
   border: none;
+
+  font-family: Pretendard;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
 }
 
 input[type="color"]::-webkit-color-swatch-wrapper {
@@ -133,8 +138,14 @@ textarea {
 select {
   background: none;
   outline: none;
+  border: none;
   border-radius: 0;
   cursor: pointer;
   -moz-appearance: none;
   -webkit-appearance: none;
+
+  font-family: Pretendard;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
 }

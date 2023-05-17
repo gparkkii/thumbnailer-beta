@@ -14,6 +14,7 @@ interface IconProps extends IconStyledProps {
 const IconType = {
   random: '/assets/ic-random.svg',
   logo: '/assets/ic-logo.svg',
+  arrowDown: '/assets/ic-arrow-down.svg',
 };
 
 const StyledIcon = styled.div<IconStyledProps>`
