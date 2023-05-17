@@ -4,6 +4,7 @@ import ColorPicker from '../Form/ColorPicker';
 import CTAButton from '../Form/CTAButton';
 import Dropdown from '../Form/Dropdown';
 import LabelInput from '../Form/LabelInput';
+import TextAlignment from '../Form/TextAlignment';
 import TextInput from '../Form/TextInput';
 import Tab from './Tab';
 
@@ -77,6 +78,7 @@ const Drawer = () => {
         </Tab>
         <Tab label="텍스트">
           <Dropdown placeholder="폰트를 선택해주세요." options={FONT_OPTION} />
+          <TextAlignment />
         </Tab>
       </TabWrapper>
       <ButtonWrapper>

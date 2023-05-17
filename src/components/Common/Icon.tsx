@@ -15,6 +15,9 @@ const IconType = {
   random: '/assets/ic-random.svg',
   logo: '/assets/ic-logo.svg',
   arrowDown: '/assets/ic-arrow-down.svg',
+  alignLeft: '/assets/ic-align-left.svg',
+  alignCenter: '/assets/ic-align-center.svg',
+  alignRight: '/assets/ic-align-right.svg',
 };
 
 const StyledIcon = styled.div<IconStyledProps>`
