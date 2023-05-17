@@ -2,6 +2,7 @@ import React from 'react';
 import { styled } from 'styled-components';
 import ColorPicker from '../Form/ColorPicker';
 import CTAButton from '../Form/CTAButton';
+import LabelInput from '../Form/LabelInput';
 import TextInput from '../Form/TextInput';
 import Tab from './Tab';
 
@@ -27,6 +28,15 @@ const TabWrapper = styled.div`
   gap: 30px;
 `;
 
+const InputWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0px;
+  gap: 28px;
+`;
+
 const ButtonWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -38,7 +48,16 @@ const Drawer = () => {
   return (
     <Wrapper>
       <TabWrapper>
-        <Tab label="크기">크기</Tab>
+        <Tab label="크기">
+          <InputWrapper>
+            <LabelInput label="X" name="width" placeholder="넓이" />
+            <LabelInput label="Y" name="height" placeholder="높이" />
+          </InputWrapper>
+          <InputWrapper>
+            <LabelInput label="PX" name="paddingX" placeholder="0" />
+            <LabelInput label="PY" name="paddingY" placeholder="0" />
+          </InputWrapper>
+        </Tab>
         <Tab label="배경색">
           <ColorPicker name="backgroundColor" value="#000000" />
         </Tab>

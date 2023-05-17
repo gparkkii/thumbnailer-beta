@@ -20,7 +20,7 @@ const StyledInput = styled.input`
   color: ${({ theme }) => theme.colors.gray900};
 
   &::placeholder {
-    color: ${({ theme }) => theme.colors.gray600};
+    color: ${({ theme }) => theme.colors.gray500};
   }
 
   &:hover {
