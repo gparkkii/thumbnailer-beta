@@ -10,7 +10,7 @@ const TabBox = styled.div`
   padding: 0px 20px;
 
   padding-bottom: 30px;
-  border-bottom: 1.5px dashed #eee;
+  border-bottom: 1.5px dashed ${({ theme }) => theme.colors.gray200};
 
   gap: 20px;
 
