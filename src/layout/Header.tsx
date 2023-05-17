@@ -1,7 +1,8 @@
 import React from 'react';
 import { styled } from 'styled-components';
+import Icon from '../components/Common/Icon';
 
-const StyledHeader = styled.div`
+const StyledHeader = styled.header`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -15,15 +16,17 @@ const StyledHeader = styled.div`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.0025);
 `;
 
-const Logo = styled.img`
+const LogoBox = styled.div`
+  width: 100%;
   height: 24px;
-  object-fit: contain;
 `;
 
 const Header = () => {
   return (
     <StyledHeader>
-      <Logo src="/header-logo.svg" alt="logo" />
+      <LogoBox>
+        <Icon type="logo" alt="logo" size="full" />
+      </LogoBox>
     </StyledHeader>
   );
 };
