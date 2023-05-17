@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 import { ThumbnailerColorType } from '../theme';
 
 interface FontColorStyledProps {
-  textColor: ThumbnailerColorType;
+  textColor?: ThumbnailerColorType;
 }
 
 export const Title = styled.h3<FontColorStyledProps>`
