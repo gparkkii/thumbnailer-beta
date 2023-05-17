@@ -7,7 +7,9 @@ const ToggleWrapper = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
+  margin-left: 6px;
+  margin-right: -6px;
 
   width: 100%;
   height: 44px;

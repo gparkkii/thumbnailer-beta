@@ -9,7 +9,7 @@ const TabBox = styled.div`
   align-items: flex-start;
   padding: 0px 20px;
 
-  padding-bottom: 30px;
+  padding-bottom: 24px;
   border-bottom: 1.5px dashed ${({ theme }) => theme.colors.gray200};
 
   gap: 20px;

@@ -4,7 +4,7 @@ import Icon from '../Common/Icon';
 
 interface DropdownProps {
   placeholder: string;
-  options: { label: string; option: string }[];
+  options: { label: string; option: string | number }[];
   value?: string;
   onChange?: React.ChangeEventHandler<HTMLSelectElement>;
 }
@@ -27,7 +27,7 @@ const StyledSelect = styled.select`
   height: 100%;
   padding: 8px 16px;
 
-  color: #454545;
+  color: ${({ theme }) => theme.colors.gray800};
 `;
 
 const IconBox = styled.div`
