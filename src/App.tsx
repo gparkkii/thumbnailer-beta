@@ -1,11 +1,15 @@
 import React from 'react';
+import { ThemeProvider } from 'styled-components';
 import Main from './pages/Main';
+import { theme } from './theme';
 
 function App() {
   return (
-    <div className="thumbnailer">
-      <Main />
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className="thumbnailer">
+        <Main />
+      </div>
+    </ThemeProvider>
   );
 }
 
