@@ -2,9 +2,10 @@ import React from 'react';
 import { styled } from 'styled-components';
 
 interface CanvasProps {
+  canvasRef: React.RefObject<HTMLCanvasElement>;
   width: number;
   height: number;
-  canvasRef?: React.RefObject<HTMLCanvasElement>;
+  zoomLevel: number;
 }
 
 const CanvasContainer = styled.div`
@@ -21,7 +22,7 @@ const CanvasContainer = styled.div`
   overflow: auto;
 `;
 
-const Canvas = ({ canvasRef, width, height }: CanvasProps) => {
+const Canvas = ({ canvasRef, width, height, zoomLevel }: CanvasProps) => {
   return (
     <CanvasContainer>
       <canvas
@@ -29,8 +30,8 @@ const Canvas = ({ canvasRef, width, height }: CanvasProps) => {
         width={width}
         height={height}
         style={{
-          transformOrigin: '0 0',
-          border: '1px dashed black',
+          transform: `scale(${zoomLevel})`,
+          border: '2px dashed #aaa',
         }}
       />
     </CanvasContainer>

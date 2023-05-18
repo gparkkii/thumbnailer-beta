@@ -9,6 +9,8 @@ import TextInput from '../Form/TextInput';
 import Tab from './Tab';
 
 const Wrapper = styled.div`
+  position: fixed;
+  right: 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -91,7 +93,11 @@ const FONT_SIZE_OPTION = [
   { label: '8px', option: '8px' },
 ];
 
-const Drawer = () => {
+interface DrawerProps {
+  handleDownload: React.MouseEventHandler<HTMLButtonElement>;
+}
+
+const Drawer = ({ handleDownload }: DrawerProps) => {
   return (
     <Wrapper>
       <TabWrapper>
@@ -134,7 +140,7 @@ const Drawer = () => {
         </Tab>
       </TabWrapper>
       <ButtonWrapper>
-        <CTAButton label="다운로드" />
+        <CTAButton label="다운로드" onClick={handleDownload} />
       </ButtonWrapper>
     </Wrapper>
   );
