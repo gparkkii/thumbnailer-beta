@@ -1,12 +1,14 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import ColorPicker from '../Form/ColorPicker';
-import CTAButton from '../Form/CTAButton';
-import Dropdown from '../Form/Dropdown';
-import LabelInput from '../Form/LabelInput';
-import TextAlignment from '../Form/TextAlignment';
-import TextInput from '../Form/TextInput';
-import Tab from './Tab';
+import {
+  ColorPicker,
+  CTAButton,
+  Dropdown,
+  LabelInput,
+  TextAlignment,
+  TextInput,
+  Tab,
+} from 'components';
 
 const Wrapper = styled.div`
   position: fixed;
@@ -18,7 +20,7 @@ const Wrapper = styled.div`
   padding: 32px 0px;
 
   width: 360px;
-  height: calc(100vh - 64px); // 100vh - header height
+  height: calc(100% - 64px); // 100% - header height
 
   background: ${({ theme }) => theme.colors.white};
 
@@ -43,7 +45,7 @@ const InputWrapper = styled.div<{ gap?: number }>`
   width: 100%;
   padding: 0px;
 
-  gap: ${({ gap }) => (gap ? `${gap}px` : '24px')};
+  gap: ${({ gap = 24 }) => `${gap}px`};
 `;
 
 const ButtonWrapper = styled.div`
@@ -97,46 +99,66 @@ interface DrawerProps {
   handleDownload: React.MouseEventHandler<HTMLButtonElement>;
 }
 
+const TabContentSizes = () => (
+  <>
+    <InputWrapper>
+      <LabelInput label="X" name="width" placeholder="넓이" />
+      <LabelInput label="Y" name="height" placeholder="높이" />
+    </InputWrapper>
+    <InputWrapper>
+      <LabelInput label="PX" name="paddingX" placeholder="0" />
+      <LabelInput label="PY" name="paddingY" placeholder="0" />
+    </InputWrapper>
+  </>
+);
+
+const TabContentBackground = () => (
+  <ColorPicker
+    expanded={{ onClick: undefined, ref: undefined }}
+    name="backgroundColor"
+    value="#000000"
+  />
+);
+
+const TabContentText = () => (
+  <TextInput name="title" placeholder="문구를 입력해주세요." />
+);
+
+const TabContentFont = () => (
+  <>
+    <Margin margin={-12} />
+    <Dropdown placeholder="폰트를 선택해주세요." options={FONT_OPTION} />
+    <InputWrapper gap={20}>
+      <Dropdown placeholder="Medium" options={FONT_WEIGHT_OPTION} />
+      <Dropdown placeholder="40px" options={FONT_SIZE_OPTION} />
+    </InputWrapper>
+    <Margin margin={-4} />
+    <InputWrapper gap={16}>
+      <ColorPicker
+        expanded={{ onClick: undefined, ref: undefined }}
+        name="backgroundColor"
+        value="#000000"
+      />
+      <TextAlignment />
+    </InputWrapper>
+  </>
+);
+
 const Drawer = ({ handleDownload }: DrawerProps) => {
   return (
     <Wrapper>
       <TabWrapper>
         <Tab label="크기">
-          <InputWrapper>
-            <LabelInput label="X" name="width" placeholder="넓이" />
-            <LabelInput label="Y" name="height" placeholder="높이" />
-          </InputWrapper>
-          <InputWrapper>
-            <LabelInput label="PX" name="paddingX" placeholder="0" />
-            <LabelInput label="PY" name="paddingY" placeholder="0" />
-          </InputWrapper>
+          <TabContentSizes />
         </Tab>
         <Tab label="배경색">
-          <ColorPicker
-            expanded={{ onClick: undefined, ref: undefined }}
-            name="backgroundColor"
-            value="#000000"
-          />
+          <TabContentBackground />
         </Tab>
         <Tab label="문구">
-          <TextInput name="title" placeholder="문구를 입력해주세요." />
+          <TabContentText />
         </Tab>
         <Tab label="텍스트">
-          <Margin margin={-12} />
-          <Dropdown placeholder="폰트를 선택해주세요." options={FONT_OPTION} />
-          <InputWrapper gap={20}>
-            <Dropdown placeholder="Medium" options={FONT_WEIGHT_OPTION} />
-            <Dropdown placeholder="40px" options={FONT_SIZE_OPTION} />
-          </InputWrapper>
-          <Margin margin={-4} />
-          <InputWrapper gap={16}>
-            <ColorPicker
-              expanded={{ onClick: undefined, ref: undefined }}
-              name="backgroundColor"
-              value="#000000"
-            />
-            <TextAlignment />
-          </InputWrapper>
+          <TabContentFont />
         </Tab>
       </TabWrapper>
       <ButtonWrapper>

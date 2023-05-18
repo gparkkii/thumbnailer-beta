@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { styled } from 'styled-components';
-import Canvas from '../components/Canvas';
-import Drawer from '../components/Drawer/Drawer';
+import { Canvas, Drawer } from 'components';
 
 const Container = styled.div`
   display: flex;

@@ -6,20 +6,6 @@ interface IconStyledProps {
   size: 'sm' | 'md' | 'lg' | 'full';
 }
 
-interface IconProps extends IconStyledProps {
-  type: keyof typeof IconType;
-  alt: string;
-}
-
-const IconType = {
-  random: '/assets/ic-random.svg',
-  logo: '/assets/ic-logo.svg',
-  arrowDown: '/assets/ic-arrow-down.svg',
-  alignLeft: '/assets/ic-align-left.svg',
-  alignCenter: '/assets/ic-align-center.svg',
-  alignRight: '/assets/ic-align-right.svg',
-};
-
 const StyledIcon = styled.div<IconStyledProps>`
   background-image: url(${({ url }) => url});
   background-size: contain;
@@ -35,6 +21,20 @@ const StyledIcon = styled.div<IconStyledProps>`
       ? `width: 20px; height: 20px;`
       : `width: 18px; height: 18px;`}
 `;
+
+interface IconProps extends IconStyledProps {
+  type: keyof typeof IconType;
+  alt: string;
+}
+
+const IconType = {
+  random: '../assets/ic-random.svg',
+  logo: '../assets/ic-logo.svg',
+  arrowDown: '../assets/ic-arrow-down.svg',
+  alignLeft: '../assets/ic-align-left.svg',
+  alignCenter: '../assets/ic-align-center.svg',
+  alignRight: '../assets/ic-align-right.svg',
+};
 
 const Icon = ({ type, alt, size = 'md' }: IconProps) => {
   return <StyledIcon url={IconType[type]} size={size} className={alt} />;

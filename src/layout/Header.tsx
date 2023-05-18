@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import Icon from '../components/Common/Icon';
+import { Icon } from 'components';
 
 const StyledHeader = styled.header`
   display: flex;

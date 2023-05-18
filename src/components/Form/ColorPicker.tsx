@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import { Subtext } from '../../styles/typography';
+import { Subtext } from 'styles/typography.styles';
 
 interface ColorPickerProps {
   name: string;

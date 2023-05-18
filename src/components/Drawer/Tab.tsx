@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import { Subtitle } from '../../styles/typography';
+import { Subtitle } from '../../styles/typography.styles';
 import Icon from '../Common/Icon';
 
 const TabBox = styled.div`

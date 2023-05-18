@@ -1,7 +1,7 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import { Content } from '../../styles/typography';
 import TextInput from './TextInput';
+import { Content } from 'styles/typography.styles';
 
 interface LabelInputProps {
   label: string;
