@@ -6,19 +6,19 @@ interface ColorPickerProps {
   name: string;
   value?: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
-  fullSize?: {
+  expanded?: {
     ref?: React.RefObject<HTMLInputElement>;
     onClick?: () => void;
   };
 }
 
-const PickerWrapper = styled.div<{ fullSize?: boolean }>`
+const PickerWrapper = styled.div<{ $expanded?: boolean }>`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
 
-  width: ${({ fullSize }) => (fullSize ? '100%' : '44px')};
+  width: ${({ $expanded }) => ($expanded ? '100%' : '44px')};
   height: 44px;
 
   background: ${({ theme }) => theme.colors.white};
@@ -40,20 +40,20 @@ const TextBox = styled.div`
   margin-left: 8px;
 `;
 
-const ColorPicker = ({ fullSize, name, value, onChange }: ColorPickerProps) => {
+const ColorPicker = ({ expanded, name, value, onChange }: ColorPickerProps) => {
   return (
     <PickerWrapper
-      fullSize={fullSize !== undefined}
-      onClick={fullSize?.onClick}
+      $expanded={expanded !== undefined}
+      onClick={expanded?.onClick}
     >
       <StyledPicker
-        ref={fullSize?.ref}
+        ref={expanded?.ref}
         name={name}
         value={value}
         type="color"
         onChange={onChange}
       />
-      {fullSize && (
+      {expanded && (
         <TextBox>
           <Subtext>{value}</Subtext>
         </TextBox>

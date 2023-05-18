@@ -25,8 +25,8 @@ const Button = styled.button<TextAlignmentStyledProps>`
   height: 44px;
 
   border-radius: 8px;
-  background-color: ${({ active, theme }) =>
-    active ? theme.colors.gray200 : theme.colors.white};
+  background-color: ${({ selected, theme }) =>
+    selected ? theme.colors.gray200 : theme.colors.white};
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.primary100};
@@ -34,7 +34,7 @@ const Button = styled.button<TextAlignmentStyledProps>`
 `;
 
 interface TextAlignmentStyledProps {
-  active?: boolean;
+  selected?: boolean;
 }
 
 interface TextAlignmentProps {
@@ -45,13 +45,13 @@ interface TextAlignmentProps {
 const TextAlignment = ({ value, onClick }: TextAlignmentProps) => {
   return (
     <ToggleWrapper>
-      <Button name="left" onClick={onClick} active={value === 'left'}>
+      <Button name="left" onClick={onClick} selected={value === 'left'}>
         <Icon type="alignLeft" size="md" alt="text-align-left" />
       </Button>
-      <Button name="center" onClick={onClick} active={value === 'center'}>
+      <Button name="center" onClick={onClick} selected={value === 'center'}>
         <Icon type="alignCenter" size="md" alt="text-align-center" />
       </Button>
-      <Button name="right" onClick={onClick} active={value === 'right'}>
+      <Button name="right" onClick={onClick} selected={value === 'right'}>
         <Icon type="alignRight" size="md" alt="text-align-right" />
       </Button>
     </ToggleWrapper>

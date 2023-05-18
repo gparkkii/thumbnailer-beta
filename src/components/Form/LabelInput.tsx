@@ -34,7 +34,7 @@ const LabelInput = ({
   return (
     <LabelInputWrapper>
       <LabelBox>
-        <Content textColor="gray600">{label}</Content>
+        <Content textcolor="gray600">{label}</Content>
       </LabelBox>
       <TextInput
         name={name}

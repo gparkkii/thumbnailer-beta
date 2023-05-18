@@ -107,7 +107,7 @@ const Drawer = () => {
         </Tab>
         <Tab label="배경색">
           <ColorPicker
-            fullSize={{ onClick: undefined, ref: undefined }}
+            expanded={{ onClick: undefined, ref: undefined }}
             name="backgroundColor"
             value="#000000"
           />
@@ -125,7 +125,7 @@ const Drawer = () => {
           <Margin margin={-4} />
           <InputWrapper gap={16}>
             <ColorPicker
-              fullSize={{ onClick: undefined, ref: undefined }}
+              expanded={{ onClick: undefined, ref: undefined }}
               name="backgroundColor"
               value="#000000"
             />

@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 import { ThumbnailerColorType } from '../theme';
 
 interface FontColorStyledProps {
-  textColor?: ThumbnailerColorType;
+  textcolor?: ThumbnailerColorType;
 }
 
 export const Title = styled.h3<FontColorStyledProps>`
@@ -10,8 +10,8 @@ export const Title = styled.h3<FontColorStyledProps>`
   font-weight: 700;
   font-size: 20px;
   line-height: 24px;
-  color: ${({ theme, textColor }) =>
-    textColor ? theme.colors[textColor] : theme.colors.black};
+  color: ${({ theme, textcolor }) =>
+    textcolor ? theme.colors[textcolor] : theme.colors.black};
 `;
 
 export const Subtitle = styled.h6<FontColorStyledProps>`
@@ -19,8 +19,8 @@ export const Subtitle = styled.h6<FontColorStyledProps>`
   font-weight: 700;
   font-size: 16px;
   line-height: 21px;
-  color: ${({ theme, textColor }) =>
-    textColor ? theme.colors[textColor] : theme.colors.black};
+  color: ${({ theme, textcolor }) =>
+    textcolor ? theme.colors[textcolor] : theme.colors.black};
 `;
 
 export const Subtext = styled.p<FontColorStyledProps>`
@@ -28,8 +28,8 @@ export const Subtext = styled.p<FontColorStyledProps>`
   font-weight: 500;
   font-size: 16px;
   line-height: 19px;
-  color: ${({ theme, textColor }) =>
-    textColor ? theme.colors[textColor] : theme.colors.black};
+  color: ${({ theme, textcolor }) =>
+    textcolor ? theme.colors[textcolor] : theme.colors.black};
 `;
 
 export const Content = styled.p<FontColorStyledProps>`
@@ -37,8 +37,8 @@ export const Content = styled.p<FontColorStyledProps>`
   font-weight: 400;
   font-size: 16px;
   line-height: 21px;
-  color: ${({ theme, textColor }) =>
-    textColor ? theme.colors[textColor] : theme.colors.black};
+  color: ${({ theme, textcolor }) =>
+    textcolor ? theme.colors[textcolor] : theme.colors.black};
 `;
 
 export const Body = styled.p<FontColorStyledProps>`
@@ -46,8 +46,8 @@ export const Body = styled.p<FontColorStyledProps>`
   font-weight: 400;
   font-size: 14px;
   line-height: 19px;
-  color: ${({ theme, textColor }) =>
-    textColor ? theme.colors[textColor] : theme.colors.black};
+  color: ${({ theme, textcolor }) =>
+    textcolor ? theme.colors[textcolor] : theme.colors.black};
 `;
 
 export const Caption = styled.p<FontColorStyledProps>`
@@ -55,6 +55,6 @@ export const Caption = styled.p<FontColorStyledProps>`
   font-weight: 400;
   font-size: 12px;
   line-height: 16px;
-  color: ${({ theme, textColor }) =>
-    textColor ? theme.colors[textColor] : theme.colors.black};
+  color: ${({ theme, textcolor }) =>
+    textcolor ? theme.colors[textcolor] : theme.colors.black};
 `;
