@@ -1,5 +1,6 @@
 // components/index.ts
 export { default as Canvas } from './Canvas';
+export { default as ZoomController } from './Controls/ZoomController';
 
 // Common 폴더
 export { default as Icon } from './Common/Icon';

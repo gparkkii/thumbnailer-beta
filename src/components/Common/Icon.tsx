@@ -34,6 +34,8 @@ const IconType = {
   alignLeft: '../assets/ic-align-left.svg',
   alignCenter: '../assets/ic-align-center.svg',
   alignRight: '../assets/ic-align-right.svg',
+  zoomIn: '../assets/ic-zoom-in.svg',
+  zoomOut: '../assets/ic-zoom-out.svg',
 };
 
 const Icon = ({ type, alt, size = 'md' }: IconProps) => {

@@ -1,8 +1,10 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { styled } from 'styled-components';
-import { Canvas, Drawer } from 'components';
+import { Canvas, Drawer, ZoomController } from 'components';
 
 const Container = styled.div`
+  position: relative;
+
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -12,24 +14,92 @@ const Container = styled.div`
   height: 100%;
 `;
 
-const ZoomController = styled.div`
-  position: absolute;
-  z-index: 999;
-`;
+const THUMBNAIL_INITIAL_SETTINGS = {
+  zoomLevel: 1,
+  canvasWidth: 900,
+  canvasHeight: 600,
+  canvasPaddingX: 0,
+  canvasPaddingY: 0,
+  thumbnailTitle: '문구를 입력해주세요.',
+  backgroundColor: '#9CD4E6',
+  fontSize: 40,
+  fontFamily: 'Noto Sans',
+  fontWeight: 'Bold',
+  fontColor: '#FFFFFF',
+  textAlign: 'center' as CanvasTextAlign,
+};
 
 function Main() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [zoomLevel, setZoomLevel] = useState(1);
-  const [canvasWidth, setCanvasWidth] = useState(900);
-  const [canvasHeight, setCanvasHeight] = useState(600);
+  const [thumnbnailConfig, setThumnbnailConfig] = useState(
+    THUMBNAIL_INITIAL_SETTINGS,
+  );
+  const {
+    canvasWidth,
+    canvasHeight,
+    canvasPaddingX,
+    canvasPaddingY,
+    backgroundColor,
+    thumbnailTitle,
+    fontFamily,
+    fontWeight,
+    fontSize,
+    fontColor,
+    textAlign,
+    zoomLevel,
+  } = thumnbnailConfig;
 
-  const handleZoomIn = useCallback(() => {
-    setZoomLevel(prevZoom => prevZoom + 0.1);
-  }, []);
+  // const [zoomLevel, setZoomLevel] = useState(
+  //   THUMBNAIL_INITIAL_SETTINGS.zoomLevel,
+  // );
+  // const [canvasWidth, setCanvasWidth] = useState(
+  //   THUMBNAIL_INITIAL_SETTINGS.canvasWidth,
+  // );
+  // const [canvasHeight, setCanvasHeight] = useState(
+  //   THUMBNAIL_INITIAL_SETTINGS.canvasHeight,
+  // );
+  // const [canvasPaddingX, setCanvasPaddingX] = useState(
+  //   THUMBNAIL_INITIAL_SETTINGS.canvasPaddingX,
+  // );
+  // const [canvasPaddingY, setCanvasPaddingY] = useState(
+  //   THUMBNAIL_INITIAL_SETTINGS.canvasPaddingY,
+  // );
+  // const [thumbnailTitle, setThumbnailTitle] = useState(
+  //   THUMBNAIL_INITIAL_SETTINGS.thumbnailTitle,
+  // );
+  // const [backgroundColor, setBackgroundColor] = useState(
+  //   THUMBNAIL_INITIAL_SETTINGS.backgroundColor,
+  // );
+  // const [fontSize, setFontSize] = useState(THUMBNAIL_INITIAL_SETTINGS.fontSize);
+  // const [fontFamily, setFontFamily] = useState(
+  //   THUMBNAIL_INITIAL_SETTINGS.fontFamily,
+  // );
+  // const [fontWeight, setFontWeight] = useState(
+  //   THUMBNAIL_INITIAL_SETTINGS.fontWeight,
+  // );
+  // const [fontColor, setFontColor] = useState(
+  //   THUMBNAIL_INITIAL_SETTINGS.fontColor,
+  // );
+  // const [textAlign, setTextAlign] = useState(
+  //   THUMBNAIL_INITIAL_SETTINGS.textAlign,
+  // );
 
-  const handleZoomOut = useCallback(() => {
-    setZoomLevel(prevZoom => Math.max(prevZoom - 0.1, 0.1));
-  }, []);
+  const handleZoom = useCallback(
+    (
+      e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+      type: 'in' | 'out',
+    ) => {
+      e.preventDefault();
+      setThumnbnailConfig(prev => ({
+        ...prev,
+        zoomLevel:
+          type === 'in'
+            ? prev.zoomLevel + 0.1
+            : Math.max(prev.zoomLevel - 0.1, 0.1),
+      }));
+    },
+    [],
+  );
 
   const drawThumbnail = useCallback(
     (
@@ -42,22 +112,31 @@ function Main() {
       ctx.clearRect(0, 0, scaledWidth, scaledHeight);
 
       // Draw thumbnail
-      ctx.fillStyle = 'lightblue';
+      ctx.fillStyle = backgroundColor;
       ctx.fillRect(0, 0, scaledWidth, scaledHeight);
 
-      const baseFontSize = 80;
-      const zoomedFontSize = baseFontSize * zoomLevel;
+      const zoomedFontSize = fontSize * zoomLevel;
       const scaledFontSize = applyScaling
         ? zoomedFontSize * (canvasWidth / (canvasWidth * zoomLevel))
         : zoomedFontSize;
-      const fontSize = applyScaling ? scaledFontSize : zoomedFontSize;
-      ctx.font = `bold ${fontSize}px GmarketSans`;
-      ctx.fillStyle = 'white';
-      ctx.textAlign = 'center';
+      const finalFontSize = applyScaling ? scaledFontSize : zoomedFontSize;
+      ctx.font = `${fontWeight} ${finalFontSize}px ${fontFamily}`;
+      ctx.fillStyle = fontColor;
+      ctx.textAlign = textAlign;
       ctx.textBaseline = 'middle';
-      ctx.fillText('Thumbnail', scaledWidth / 2, scaledHeight / 2);
+      ctx.fillText(thumbnailTitle, scaledWidth / 2, scaledHeight / 2);
     },
-    [canvasWidth, zoomLevel],
+    [
+      backgroundColor,
+      canvasWidth,
+      fontColor,
+      fontFamily,
+      fontSize,
+      fontWeight,
+      textAlign,
+      thumbnailTitle,
+      zoomLevel,
+    ],
   );
 
   const generateThumbnail = useCallback(() => {
@@ -74,7 +153,7 @@ function Main() {
         drawThumbnail(ctx, scaledWidth, scaledHeight);
       }
     }
-  }, [canvasWidth, canvasHeight, zoomLevel, drawThumbnail]);
+  }, [canvasWidth, zoomLevel, canvasHeight, drawThumbnail]);
 
   useEffect(() => {
     generateThumbnail();
@@ -113,10 +192,7 @@ function Main() {
         zoomLevel={zoomLevel}
       />
       <Drawer handleDownload={handleDownload} />
-      <ZoomController>
-        <button onClick={handleZoomIn}>Zoom In</button>
-        <button onClick={handleZoomOut}>Zoom Out</button>
-      </ZoomController>
+      <ZoomController handleZoom={handleZoom} value={zoomLevel} />
     </Container>
   );
 }
