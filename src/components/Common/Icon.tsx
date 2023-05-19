@@ -36,6 +36,9 @@ const IconType = {
   alignRight: '../assets/ic-align-right.svg',
   zoomIn: '../assets/ic-zoom-in.svg',
   zoomOut: '../assets/ic-zoom-out.svg',
+  desktop: '../assets/ic-desktop.svg',
+  tablet: '../assets/ic-tablet.svg',
+  mobile: '../assets/ic-mobile.svg',
 };
 
 const Icon = ({ type, alt, size = 'md' }: IconProps) => {

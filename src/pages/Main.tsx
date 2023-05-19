@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { styled } from 'styled-components';
+import RatioController from '../components/Controls/RatioController';
 import { Canvas, Drawer, ZoomController } from 'components';
 
 const Container = styled.div`
@@ -12,6 +13,21 @@ const Container = styled.div`
 
   width: 100vw;
   height: 100%;
+`;
+
+const CanvasController = styled.div`
+  position: absolute;
+  bottom: 80px;
+
+  right: 50%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+
+  width: 390px;
 `;
 
 const THUMBNAIL_INITIAL_SETTINGS = {
@@ -192,7 +208,10 @@ function Main() {
         zoomLevel={zoomLevel}
       />
       <Drawer handleDownload={handleDownload} />
-      <ZoomController handleZoom={handleZoom} value={zoomLevel} />
+      <CanvasController>
+        <ZoomController handleZoom={handleZoom} value={zoomLevel} />
+        <RatioController />
+      </CanvasController>
     </Container>
   );
 }
