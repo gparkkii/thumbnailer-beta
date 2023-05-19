@@ -27,7 +27,19 @@ const CanvasController = styled.div`
   justify-content: center;
   gap: 40px;
 
-  width: 390px;
+  width: 420px;
+  height: 60px;
+  border-radius: 100px;
+
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.17);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  & p {
+    color: rgba(31, 38, 135, 0.27);
+  }
 `;
 
 const THUMBNAIL_INITIAL_SETTINGS = {
@@ -210,6 +222,7 @@ function Main() {
       <Drawer handleDownload={handleDownload} />
       <CanvasController>
         <ZoomController handleZoom={handleZoom} value={zoomLevel} />
+        <p>|</p>
         <RatioController />
       </CanvasController>
     </Container>
