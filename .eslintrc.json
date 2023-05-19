@@ -10,8 +10,8 @@
     "plugin:react-hooks/recommended",
     "airbnb-typescript",
     "plugin:@typescript-eslint/recommended",
-    "plugin:import/typescript",
     "plugin:import/recommended",
+    "plugin:import/typescript",
     "plugin:prettier/recommended"
   ],
   "parser": "@typescript-eslint/parser",
@@ -24,7 +24,6 @@
     "project": "./tsconfig.json"
   },
   "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier"],
-  "ignorePatterns": ["dist/", "node_modules/"],
   "rules": {
     "import/order": [
       "error",
@@ -40,8 +39,10 @@
     "import/no-unresolved": "off",
     "import/export": "off",
     "react/jsx-filename-extension": [
-      1,
-      { "extensions": [".js", ".jsx", ".tsx"] }
+      "error",
+      {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
     ]
   },
   "settings": {
