@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { styled } from 'styled-components';
+import { ThumbnailConfigType } from '../../@types/index.type';
 import {
   ColorPicker,
   CTAButton,
@@ -95,33 +96,56 @@ const FONT_SIZE_OPTION = [
   { label: '8px', option: '8px' },
 ];
 
-interface DrawerProps {
+interface DrawerProps extends DrawerInputProps {
   handleDownload: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-const TabContentSizes = () => (
+interface DrawerInputProps {
+  values: ThumbnailConfigType;
+  onInputChange?: React.ChangeEventHandler<HTMLInputElement>;
+}
+
+const TabContentSizes = ({ values, onInputChange }: DrawerInputProps) => (
   <>
     <InputWrapper>
-      <LabelInput label="X" name="width" placeholder="넓이" />
-      <LabelInput label="Y" name="height" placeholder="높이" />
+      <LabelInput
+        value={values.canvasWidth}
+        label="X"
+        name="canvasWidth"
+        placeholder="넓이"
+        onChange={onInputChange}
+      />
+      <LabelInput
+        value={values.canvasHeight}
+        label="Y"
+        name="canvasHeight"
+        placeholder="높이"
+        onChange={onInputChange}
+      />
     </InputWrapper>
     <InputWrapper>
-      <LabelInput label="PX" name="paddingX" placeholder="0" />
-      <LabelInput label="PY" name="paddingY" placeholder="0" />
+      <LabelInput label="PX" name="canvasPaddingX" placeholder="0" />
+      <LabelInput label="PY" name="canvasPaddingY" placeholder="0" />
     </InputWrapper>
   </>
 );
 
-const TabContentBackground = () => (
+const TabContentBackground = ({ values, onInputChange }: DrawerInputProps) => (
   <ColorPicker
     expanded={{ onClick: undefined, ref: undefined }}
     name="backgroundColor"
-    value="#000000"
+    value={values.backgroundColor}
+    onChange={onInputChange}
   />
 );
 
-const TabContentText = () => (
-  <TextInput name="title" placeholder="문구를 입력해주세요." />
+const TabContentText = ({ values, onInputChange }: DrawerInputProps) => (
+  <TextInput
+    value={values.thumbnailTitle}
+    name="thumbnailTitle"
+    placeholder={'문구를 입력해주세요.'}
+    onChange={onInputChange}
+  />
 );
 
 const TabContentFont = () => (
@@ -144,18 +168,18 @@ const TabContentFont = () => (
   </>
 );
 
-const Drawer = ({ handleDownload }: DrawerProps) => {
+const Drawer = ({ values, handleDownload, onInputChange }: DrawerProps) => {
   return (
     <Wrapper>
       <TabWrapper>
         <Tab label="크기">
-          <TabContentSizes />
+          <TabContentSizes values={values} onInputChange={onInputChange} />
         </Tab>
         <Tab label="배경색">
-          <TabContentBackground />
+          <TabContentBackground values={values} onInputChange={onInputChange} />
         </Tab>
         <Tab label="문구">
-          <TabContentText />
+          <TabContentText values={values} onInputChange={onInputChange} />
         </Tab>
         <Tab label="텍스트">
           <TabContentFont />
@@ -168,4 +192,4 @@ const Drawer = ({ handleDownload }: DrawerProps) => {
   );
 };
 
-export default Drawer;
+export default memo(Drawer);

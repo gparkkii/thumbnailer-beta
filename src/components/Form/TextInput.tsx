@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { styled } from 'styled-components';
 
 const StyledInput = styled.input`
@@ -39,11 +39,11 @@ interface TextInputProps {
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-const TextInput = ({ value, placeholder, onChange }: TextInputProps) => {
+const TextInput = ({ name, value, placeholder, onChange }: TextInputProps) => {
   return (
     <StyledInput
       type="text"
-      name="name"
+      name={name}
       onChange={onChange}
       value={value}
       placeholder={placeholder}
@@ -51,4 +51,4 @@ const TextInput = ({ value, placeholder, onChange }: TextInputProps) => {
   );
 };
 
-export default TextInput;
+export default memo(TextInput);

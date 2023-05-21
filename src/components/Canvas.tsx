@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { styled } from 'styled-components';
 
 interface CanvasProps {
@@ -38,4 +38,4 @@ const Canvas = ({ canvasRef, width, height, zoomLevel }: CanvasProps) => {
   );
 };
 
-export default Canvas;
+export default memo(Canvas);

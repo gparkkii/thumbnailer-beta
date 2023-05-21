@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { styled } from 'styled-components';
 import { Subtext } from 'styles/typography.styles';
 
@@ -62,4 +62,4 @@ const ColorPicker = ({ expanded, name, value, onChange }: ColorPickerProps) => {
   );
 };
 
-export default ColorPicker;
+export default memo(ColorPicker);

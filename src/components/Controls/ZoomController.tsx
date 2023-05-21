@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { styled } from 'styled-components';
 import Icon from '../Common/Icon';
 import { Title } from 'styles/typography.styles';
@@ -34,4 +34,4 @@ const ZoomController = ({ handleZoom, value }: ZoomControllerProps) => {
   );
 };
 
-export default ZoomController;
+export default memo(ZoomController);

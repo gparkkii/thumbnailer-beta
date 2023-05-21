@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { styled } from 'styled-components';
 import TextInput from './TextInput';
 import { Content } from 'styles/typography.styles';
@@ -7,7 +7,7 @@ interface LabelInputProps {
   label: string;
   placeholder: string;
   name: string;
-  value?: string;
+  value?: number;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
@@ -39,11 +39,11 @@ const LabelInput = ({
       <TextInput
         name={name}
         placeholder={placeholder}
-        value={value}
+        value={value?.toString()}
         onChange={onChange}
       />
     </LabelInputWrapper>
   );
 };
 
-export default LabelInput;
+export default memo(LabelInput);

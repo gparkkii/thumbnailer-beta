@@ -1,5 +1,13 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { styled } from 'styled-components';
+import { ThumbnailConfigType } from '../@types/index.type';
 import RatioController from '../components/Controls/RatioController';
 import { Canvas, Drawer, ZoomController } from 'components';
 
@@ -42,7 +50,7 @@ const CanvasController = styled.div`
   }
 `;
 
-const THUMBNAIL_INITIAL_SETTINGS = {
+const THUMBNAIL_INITIAL_SETTINGS: ThumbnailConfigType = {
   zoomLevel: 1,
   canvasWidth: 900,
   canvasHeight: 600,
@@ -54,7 +62,7 @@ const THUMBNAIL_INITIAL_SETTINGS = {
   fontFamily: 'Noto Sans',
   fontWeight: 'Bold',
   fontColor: '#FFFFFF',
-  textAlign: 'center' as CanvasTextAlign,
+  textAlign: 'center',
 };
 
 function Main() {
@@ -62,6 +70,7 @@ function Main() {
   const [thumnbnailConfig, setThumnbnailConfig] = useState(
     THUMBNAIL_INITIAL_SETTINGS,
   );
+
   const {
     canvasWidth,
     canvasHeight,
@@ -75,42 +84,12 @@ function Main() {
     fontColor,
     textAlign,
     zoomLevel,
-  } = thumnbnailConfig;
+  } = useMemo(() => thumnbnailConfig, [thumnbnailConfig]);
 
-  // const [zoomLevel, setZoomLevel] = useState(
-  //   THUMBNAIL_INITIAL_SETTINGS.zoomLevel,
-  // );
-  // const [canvasWidth, setCanvasWidth] = useState(
-  //   THUMBNAIL_INITIAL_SETTINGS.canvasWidth,
-  // );
-  // const [canvasHeight, setCanvasHeight] = useState(
-  //   THUMBNAIL_INITIAL_SETTINGS.canvasHeight,
-  // );
-  // const [canvasPaddingX, setCanvasPaddingX] = useState(
-  //   THUMBNAIL_INITIAL_SETTINGS.canvasPaddingX,
-  // );
-  // const [canvasPaddingY, setCanvasPaddingY] = useState(
-  //   THUMBNAIL_INITIAL_SETTINGS.canvasPaddingY,
-  // );
-  // const [thumbnailTitle, setThumbnailTitle] = useState(
-  //   THUMBNAIL_INITIAL_SETTINGS.thumbnailTitle,
-  // );
-  // const [backgroundColor, setBackgroundColor] = useState(
-  //   THUMBNAIL_INITIAL_SETTINGS.backgroundColor,
-  // );
-  // const [fontSize, setFontSize] = useState(THUMBNAIL_INITIAL_SETTINGS.fontSize);
-  // const [fontFamily, setFontFamily] = useState(
-  //   THUMBNAIL_INITIAL_SETTINGS.fontFamily,
-  // );
-  // const [fontWeight, setFontWeight] = useState(
-  //   THUMBNAIL_INITIAL_SETTINGS.fontWeight,
-  // );
-  // const [fontColor, setFontColor] = useState(
-  //   THUMBNAIL_INITIAL_SETTINGS.fontColor,
-  // );
-  // const [textAlign, setTextAlign] = useState(
-  //   THUMBNAIL_INITIAL_SETTINGS.textAlign,
-  // );
+  const handleInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setThumnbnailConfig(prev => ({ ...prev, [name]: value }));
+  }, []);
 
   const handleZoom = useCallback(
     (
@@ -136,6 +115,8 @@ function Main() {
       scaledHeight: number,
       applyScaling?: boolean,
     ) => {
+      console.log('draw thumbnail', thumnbnailConfig);
+
       // Clear canvas
       ctx.clearRect(0, 0, scaledWidth, scaledHeight);
 
@@ -163,6 +144,7 @@ function Main() {
       fontWeight,
       textAlign,
       thumbnailTitle,
+      thumnbnailConfig,
       zoomLevel,
     ],
   );
@@ -219,7 +201,11 @@ function Main() {
         height={canvasHeight}
         zoomLevel={zoomLevel}
       />
-      <Drawer handleDownload={handleDownload} />
+      <Drawer
+        values={thumnbnailConfig}
+        handleDownload={handleDownload}
+        onInputChange={handleInput}
+      />
       <CanvasController>
         <ZoomController handleZoom={handleZoom} value={zoomLevel} />
         <p>|</p>
@@ -229,4 +215,4 @@ function Main() {
   );
 }
 
-export default Main;
+export default memo(Main);

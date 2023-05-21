@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { styled } from 'styled-components';
 import Icon from '../Common/Icon';
 
@@ -54,4 +54,4 @@ const Dropdown = ({ options, placeholder, value, onChange }: DropdownProps) => {
   );
 };
 
-export default Dropdown;
+export default memo(Dropdown);

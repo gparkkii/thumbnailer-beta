@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { styled } from 'styled-components';
 import Icon from '../Common/Icon';
 
@@ -21,4 +21,4 @@ const RatioController = () => {
   );
 };
 
-export default RatioController;
+export default memo(RatioController);
