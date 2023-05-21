@@ -1,5 +1,6 @@
 import React from 'react';
 import { styled } from 'styled-components';
+import { Content } from '../styles/typography.styles';
 import { Icon } from 'components';
 
 const StyledHeader = styled.header`
@@ -17,7 +18,17 @@ const StyledHeader = styled.header`
 `;
 
 const LogoBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-start;
+
   width: 100%;
+  height: 24px;
+`;
+
+const IconBox = styled.div`
+  width: 90px;
   height: 24px;
 `;
 
@@ -25,7 +36,10 @@ const Header = () => {
   return (
     <StyledHeader>
       <LogoBox>
-        <Icon type="logo" alt="logo" size="full" />
+        <IconBox>
+          <Icon type="logo" alt="logo" size="full" />
+        </IconBox>
+        <Content textcolor="gray100">Beta</Content>
       </LogoBox>
     </StyledHeader>
   );
