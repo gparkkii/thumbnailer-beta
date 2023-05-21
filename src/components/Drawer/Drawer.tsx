@@ -14,6 +14,8 @@ import {
 const Wrapper = styled.div`
   position: fixed;
   right: 0;
+  z-index: 999;
+
   display: flex;
   flex-direction: column;
   align-items: flex-start;

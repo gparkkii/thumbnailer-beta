@@ -1,5 +1,6 @@
 import React from 'react';
 import { styled } from 'styled-components';
+import Footer from './Footer';
 import Header from './Header';
 
 interface BaseLayoutProps {
@@ -17,6 +18,7 @@ const BaseLayout = ({ children }: BaseLayoutProps) => {
     <div className="thumbnailer">
       <Header />
       <Container>{children}</Container>
+      <Footer />
     </div>
   );
 };
