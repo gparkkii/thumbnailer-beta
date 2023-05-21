@@ -3,10 +3,11 @@ import { styled } from 'styled-components';
 import Icon from '../Common/Icon';
 
 interface DropdownProps {
-  placeholder: string;
+  name: string;
   options: { label: string; option: string | number }[];
   value?: string;
   onChange?: React.ChangeEventHandler<HTMLSelectElement>;
+  placeholder?: string;
 }
 
 const DropdownWrapper = styled.div`
@@ -37,10 +38,21 @@ const IconBox = styled.div`
   pointer-events: none;
 `;
 
-const Dropdown = ({ options, placeholder, value, onChange }: DropdownProps) => {
+const Dropdown = ({
+  name,
+  options,
+  placeholder,
+  value,
+  onChange,
+}: DropdownProps) => {
   return (
     <DropdownWrapper>
-      <StyledSelect value={value} placeholder={placeholder} onChange={onChange}>
+      <StyledSelect
+        name={name}
+        value={value}
+        placeholder={placeholder}
+        onChange={onChange}
+      >
         {options.map(({ label, option }, index) => (
           <option key={`${option}_${index}`} value={option}>
             {label}

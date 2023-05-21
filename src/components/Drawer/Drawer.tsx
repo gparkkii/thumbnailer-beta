@@ -104,10 +104,10 @@ interface DrawerProps extends DrawerInputProps {
 
 interface DrawerInputProps {
   values: ThumbnailConfigType;
-  onInputChange?: React.ChangeEventHandler<HTMLInputElement>;
+  onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLSelectElement>;
 }
 
-const TabContentSizes = ({ values, onInputChange }: DrawerInputProps) => (
+const TabContentSizes = ({ values, onChange }: DrawerInputProps) => (
   <>
     <InputWrapper>
       <LabelInput
@@ -115,14 +115,14 @@ const TabContentSizes = ({ values, onInputChange }: DrawerInputProps) => (
         label="X"
         name="canvasWidth"
         placeholder="넓이"
-        onChange={onInputChange}
+        onChange={onChange}
       />
       <LabelInput
         value={values.canvasHeight}
         label="Y"
         name="canvasHeight"
         placeholder="높이"
-        onChange={onInputChange}
+        onChange={onChange}
       />
     </InputWrapper>
     <InputWrapper>
@@ -132,59 +132,75 @@ const TabContentSizes = ({ values, onInputChange }: DrawerInputProps) => (
   </>
 );
 
-const TabContentBackground = ({ values, onInputChange }: DrawerInputProps) => (
+const TabContentBackground = ({ values, onChange }: DrawerInputProps) => (
   <ColorPicker
     expanded={{ onClick: undefined, ref: undefined }}
     name="backgroundColor"
     value={values.backgroundColor}
-    onChange={onInputChange}
+    onChange={onChange}
   />
 );
 
-const TabContentText = ({ values, onInputChange }: DrawerInputProps) => (
+const TabContentText = ({ values, onChange }: DrawerInputProps) => (
   <TextInput
     value={values.thumbnailTitle}
     name="thumbnailTitle"
     placeholder={'문구를 입력해주세요.'}
-    onChange={onInputChange}
+    onChange={onChange}
   />
 );
 
-const TabContentFont = () => (
+const TabContentFont = ({ values, onChange }: DrawerInputProps) => (
   <>
     <Margin margin={-12} />
-    <Dropdown placeholder="폰트를 선택해주세요." options={FONT_OPTION} />
+    <Dropdown
+      name="fontFamily"
+      value={values.fontFamily}
+      options={FONT_OPTION}
+      onChange={onChange}
+    />
     <InputWrapper gap={20}>
-      <Dropdown placeholder="Medium" options={FONT_WEIGHT_OPTION} />
-      <Dropdown placeholder="40px" options={FONT_SIZE_OPTION} />
+      <Dropdown
+        name="fontWeight"
+        value={values.fontWeight}
+        options={FONT_WEIGHT_OPTION}
+        onChange={onChange}
+      />
+      <Dropdown
+        name="fontSize"
+        value={values.fontSize}
+        options={FONT_SIZE_OPTION}
+        onChange={onChange}
+      />
     </InputWrapper>
     <Margin margin={-4} />
     <InputWrapper gap={16}>
       <ColorPicker
+        value={values.fontColor}
+        onChange={onChange}
         expanded={{ onClick: undefined, ref: undefined }}
-        name="backgroundColor"
-        value="#000000"
+        name="fontColor"
       />
       <TextAlignment />
     </InputWrapper>
   </>
 );
 
-const Drawer = ({ values, handleDownload, onInputChange }: DrawerProps) => {
+const Drawer = ({ values, handleDownload, onChange }: DrawerProps) => {
   return (
     <Wrapper>
       <TabWrapper>
         <Tab label="크기">
-          <TabContentSizes values={values} onInputChange={onInputChange} />
+          <TabContentSizes values={values} onChange={onChange} />
         </Tab>
         <Tab label="배경색">
-          <TabContentBackground values={values} onInputChange={onInputChange} />
+          <TabContentBackground values={values} onChange={onChange} />
         </Tab>
         <Tab label="문구">
-          <TabContentText values={values} onInputChange={onInputChange} />
+          <TabContentText values={values} onChange={onChange} />
         </Tab>
         <Tab label="텍스트">
-          <TabContentFont />
+          <TabContentFont values={values} onChange={onChange} />
         </Tab>
       </TabWrapper>
       <ButtonWrapper>

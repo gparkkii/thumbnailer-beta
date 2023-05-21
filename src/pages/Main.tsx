@@ -25,7 +25,7 @@ const Container = styled.div`
 
 const CanvasController = styled.div`
   position: absolute;
-  bottom: 80px;
+  bottom: 60px;
 
   right: 50%;
 
@@ -58,7 +58,7 @@ const THUMBNAIL_INITIAL_SETTINGS: ThumbnailConfigType = {
   canvasPaddingY: 0,
   thumbnailTitle: '문구를 입력해주세요.',
   backgroundColor: '#9CD4E6',
-  fontSize: 40,
+  fontSize: '40px',
   fontFamily: 'Noto Sans',
   fontWeight: 'Bold',
   fontColor: '#FFFFFF',
@@ -86,10 +86,13 @@ function Main() {
     zoomLevel,
   } = useMemo(() => thumnbnailConfig, [thumnbnailConfig]);
 
-  const handleInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setThumnbnailConfig(prev => ({ ...prev, [name]: value }));
-  }, []);
+  const handleInput = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+      const { name, value } = e.target;
+      setThumnbnailConfig(prev => ({ ...prev, [name]: value }));
+    },
+    [],
+  );
 
   const handleZoom = useCallback(
     (
@@ -115,8 +118,6 @@ function Main() {
       scaledHeight: number,
       applyScaling?: boolean,
     ) => {
-      console.log('draw thumbnail', thumnbnailConfig);
-
       // Clear canvas
       ctx.clearRect(0, 0, scaledWidth, scaledHeight);
 
@@ -124,7 +125,7 @@ function Main() {
       ctx.fillStyle = backgroundColor;
       ctx.fillRect(0, 0, scaledWidth, scaledHeight);
 
-      const zoomedFontSize = fontSize * zoomLevel;
+      const zoomedFontSize = parseInt(fontSize) * zoomLevel;
       const scaledFontSize = applyScaling
         ? zoomedFontSize * (canvasWidth / (canvasWidth * zoomLevel))
         : zoomedFontSize;
@@ -144,7 +145,6 @@ function Main() {
       fontWeight,
       textAlign,
       thumbnailTitle,
-      thumnbnailConfig,
       zoomLevel,
     ],
   );
@@ -204,7 +204,7 @@ function Main() {
       <Drawer
         values={thumnbnailConfig}
         handleDownload={handleDownload}
-        onInputChange={handleInput}
+        onChange={handleInput}
       />
       <CanvasController>
         <ZoomController handleZoom={handleZoom} value={zoomLevel} />

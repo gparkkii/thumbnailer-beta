@@ -6,7 +6,7 @@ export type ThumbnailConfigType = {
   canvasPaddingY: number;
   thumbnailTitle: string;
   backgroundColor: string;
-  fontSize: number;
+  fontSize: string;
   fontFamily: string;
   fontWeight: string;
   fontColor: string;
