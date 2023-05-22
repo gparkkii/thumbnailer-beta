@@ -1,17 +1,13 @@
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { styled } from 'styled-components';
 import {
+  Ratio,
+  RatioType,
   TextAlign,
   TextAlignType,
   ThumbnailConfigType,
 } from '../@types/index.type';
-import {
-  Canvas,
-  Drawer,
-  ZoomController,
-  RatioController,
-  Ratio,
-} from 'components';
+import { Canvas, Drawer, ZoomController, RatioController } from 'components';
 
 const Container = styled.div`
   position: relative;
@@ -68,17 +64,17 @@ const THUMBNAIL_INITIAL_SETTINGS: ThumbnailConfigType = {
 };
 
 const RATIO_CONFIGS = {
-  [Ratio.DESKTOP]: {
+  [Ratio.desktop]: {
     canvasWidth: 1920,
     canvasHeight: 1080,
     fontSize: '48px',
   },
-  [Ratio.TABLET]: {
+  [Ratio.tablet]: {
     canvasWidth: 768,
     canvasHeight: 1024,
     fontSize: '32px',
   },
-  [Ratio.MOBILE]: {
+  [Ratio.mobile]: {
     canvasWidth: 360,
     canvasHeight: 640,
     fontSize: '24px',
@@ -87,7 +83,7 @@ const RATIO_CONFIGS = {
 
 function Main() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [activeRatio, setActiveRatio] = useState<Ratio>();
+  const [activeRatio, setActiveRatio] = useState<RatioType>();
   const [thumbnailConfig, setThumbnailConfig] = useState(
     THUMBNAIL_INITIAL_SETTINGS,
   );
@@ -125,7 +121,7 @@ function Main() {
     }));
   }, []);
 
-  const handleRatio = useCallback((ratio: Ratio) => {
+  const handleRatio = useCallback((ratio: RatioType) => {
     setActiveRatio(ratio);
     setThumbnailConfig(prev => ({
       ...prev,

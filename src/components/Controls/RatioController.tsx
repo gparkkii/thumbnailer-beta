@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { styled } from 'styled-components';
+import { Ratio, RatioType } from '../../@types/index.type';
 
 const RatioContainer = styled.div`
   display: flex;
@@ -16,15 +17,9 @@ const StyledButton = styled.button`
   justify-content: center;
 `;
 
-export enum Ratio {
-  DESKTOP = '16:9',
-  TABLET = '4:3',
-  MOBILE = '9:16',
-}
-
 interface RatioControllerProps {
-  onClick: (ratio: Ratio) => void;
-  ratio?: Ratio;
+  onClick: (ratio: RatioType) => void;
+  ratio?: RatioType;
 }
 
 const DesktopIcon = ({ fill }: { fill: string }) => (
@@ -78,17 +73,26 @@ const MobileIcon = ({ fill }: { fill: string }) => (
   </svg>
 );
 
+const ACTIVE_COLOR = '#000000';
+const INACTIVE_COLOR = '#757575';
+
 const RatioController = ({ ratio, onClick }: RatioControllerProps) => {
   return (
     <RatioContainer>
-      <StyledButton onClick={() => onClick(Ratio.DESKTOP)}>
-        <DesktopIcon fill={ratio === Ratio.DESKTOP ? '#000000' : '#757575'} />
+      <StyledButton onClick={() => onClick(Ratio.desktop)}>
+        <DesktopIcon
+          fill={ratio === Ratio.desktop ? ACTIVE_COLOR : INACTIVE_COLOR}
+        />
       </StyledButton>
-      <StyledButton onClick={() => onClick(Ratio.TABLET)}>
-        <TabletIcon fill={ratio === Ratio.TABLET ? '#000000' : '#757575'} />
+      <StyledButton onClick={() => onClick(Ratio.tablet)}>
+        <TabletIcon
+          fill={ratio === Ratio.tablet ? ACTIVE_COLOR : INACTIVE_COLOR}
+        />
       </StyledButton>
-      <StyledButton onClick={() => onClick(Ratio.MOBILE)}>
-        <MobileIcon fill={ratio === Ratio.MOBILE ? '#000000' : '#757575'} />
+      <StyledButton onClick={() => onClick(Ratio.mobile)}>
+        <MobileIcon
+          fill={ratio === Ratio.mobile ? ACTIVE_COLOR : INACTIVE_COLOR}
+        />
       </StyledButton>
     </RatioContainer>
   );

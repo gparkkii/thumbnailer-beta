@@ -6,6 +6,13 @@ export const TextAlign = {
 
 export type TextAlignType = keyof typeof TextAlign;
 
+export const Ratio = {
+  desktop: 'desktop', // 16:9
+  tablet: 'tablet', // 4:3
+  mobile: 'mobile', // 9:16
+} as const;
+export type RatioType = keyof typeof Ratio;
+
 export type ThumbnailConfigType = {
   zoomLevel: number;
   canvasWidth: number;

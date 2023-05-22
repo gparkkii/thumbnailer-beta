@@ -2,7 +2,6 @@
 export { default as Canvas } from './Canvas';
 export { default as ZoomController } from './Controls/ZoomController';
 export { default as RatioController } from './Controls/RatioController';
-export { Ratio } from './Controls/RatioController';
 
 // Common 폴더
 export { default as Icon } from './Common/Icon';
