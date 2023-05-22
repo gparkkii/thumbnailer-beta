@@ -1,11 +1,4 @@
-import React, {
-  memo,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { styled } from 'styled-components';
 import { ThumbnailConfigType } from '../@types/index.type';
 import {
@@ -70,9 +63,28 @@ const THUMBNAIL_INITIAL_SETTINGS: ThumbnailConfigType = {
   textAlign: 'center',
 };
 
+const RATIO_CONFIGS = {
+  [Ratio.DESKTOP]: {
+    canvasWidth: 1920,
+    canvasHeight: 1080,
+    fontSize: '48px',
+  },
+  [Ratio.TABLET]: {
+    canvasWidth: 768,
+    canvasHeight: 1024,
+    fontSize: '32px',
+  },
+  [Ratio.MOBILE]: {
+    canvasWidth: 360,
+    canvasHeight: 640,
+    fontSize: '24px',
+  },
+};
+
 function Main() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [thumnbnailConfig, setThumnbnailConfig] = useState(
+  const [activeRatio, setActiveRatio] = useState<Ratio>();
+  const [thumbnailConfig, setThumbnailConfig] = useState(
     THUMBNAIL_INITIAL_SETTINGS,
   );
 
@@ -89,12 +101,15 @@ function Main() {
     fontColor,
     textAlign,
     zoomLevel,
-  } = useMemo(() => thumnbnailConfig, [thumnbnailConfig]);
+  } = thumbnailConfig;
 
   const handleInput = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
       const { name, value } = e.target;
-      setThumnbnailConfig(prev => ({ ...prev, [name]: value }));
+      if (name === 'canvasWidth' || name === 'canvasHeight') {
+        setActiveRatio(undefined);
+      }
+      setThumbnailConfig(prev => ({ ...prev, [name]: value }));
     },
     [],
   );
@@ -105,7 +120,7 @@ function Main() {
       type: 'in' | 'out',
     ) => {
       e.preventDefault();
-      setThumnbnailConfig(prev => ({
+      setThumbnailConfig(prev => ({
         ...prev,
         zoomLevel:
           type === 'in'
@@ -117,34 +132,11 @@ function Main() {
   );
 
   const handleRatio = useCallback((ratio: Ratio) => {
-    switch (ratio) {
-      case Ratio.DESKTOP:
-        setThumnbnailConfig(prev => ({
-          ...prev,
-          canvasWidth: 1920,
-          canvasHeight: 1080,
-          fontSize: '48px',
-        }));
-        break;
-      case Ratio.TABLET:
-        setThumnbnailConfig(prev => ({
-          ...prev,
-          canvasWidth: 768,
-          canvasHeight: 1024,
-          fontSize: '32px',
-        }));
-        break;
-      case Ratio.MOBILE:
-        setThumnbnailConfig(prev => ({
-          ...prev,
-          canvasWidth: 360,
-          canvasHeight: 640,
-          fontSize: '24px',
-        }));
-        break;
-      default:
-        break;
-    }
+    setActiveRatio(ratio);
+    setThumbnailConfig(prev => ({
+      ...prev,
+      ...RATIO_CONFIGS[ratio],
+    }));
   }, []);
 
   const drawThumbnail = useCallback(
@@ -162,14 +154,14 @@ function Main() {
       ctx.fillRect(0, 0, scaledWidth, scaledHeight);
 
       const zoomedFontSize = parseInt(fontSize) * zoomLevel;
-      const scaledFontSize = applyScaling
-        ? zoomedFontSize * (canvasWidth / (canvasWidth * zoomLevel))
-        : zoomedFontSize;
+      const scaledFontSize =
+        zoomedFontSize * (canvasWidth / (canvasWidth * zoomLevel));
       const finalFontSize = applyScaling ? scaledFontSize : zoomedFontSize;
       ctx.font = `${fontWeight} ${finalFontSize}px ${fontFamily}`;
       ctx.fillStyle = fontColor;
       ctx.textAlign = textAlign;
       ctx.textBaseline = 'middle';
+
       ctx.fillText(thumbnailTitle, scaledWidth / 2, scaledHeight / 2);
     },
     [
@@ -189,13 +181,11 @@ function Main() {
     if (canvasRef.current) {
       const canvas = canvasRef.current;
       const ctx = canvas.getContext('2d');
-
       if (ctx) {
         const scaledWidth = canvasWidth * zoomLevel;
         const scaledHeight = canvasHeight * zoomLevel;
         canvas.width = scaledWidth;
         canvas.height = scaledHeight;
-
         drawThumbnail(ctx, scaledWidth, scaledHeight);
       }
     }
@@ -238,14 +228,14 @@ function Main() {
         zoomLevel={zoomLevel}
       />
       <Drawer
-        values={thumnbnailConfig}
+        values={thumbnailConfig}
         handleDownload={handleDownload}
         onChange={handleInput}
       />
       <CanvasController>
         <ZoomController handleZoom={handleZoom} value={zoomLevel} />
         <p>|</p>
-        <RatioController onClick={handleRatio} />
+        <RatioController ratio={activeRatio} onClick={handleRatio} />
       </CanvasController>
     </Container>
   );
