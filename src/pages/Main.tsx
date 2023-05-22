@@ -1,6 +1,10 @@
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { styled } from 'styled-components';
-import { ThumbnailConfigType } from '../@types/index.type';
+import {
+  TextAlign,
+  TextAlignType,
+  ThumbnailConfigType,
+} from '../@types/index.type';
 import {
   Canvas,
   Drawer,
@@ -114,6 +118,21 @@ function Main() {
     [],
   );
 
+  const handleTextAlignment = useCallback((type: TextAlignType) => {
+    setThumbnailConfig(prev => ({
+      ...prev,
+      textAlign: type,
+    }));
+  }, []);
+
+  const handleRatio = useCallback((ratio: Ratio) => {
+    setActiveRatio(ratio);
+    setThumbnailConfig(prev => ({
+      ...prev,
+      ...RATIO_CONFIGS[ratio],
+    }));
+  }, []);
+
   const handleZoom = useCallback(
     (
       e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -130,14 +149,6 @@ function Main() {
     },
     [],
   );
-
-  const handleRatio = useCallback((ratio: Ratio) => {
-    setActiveRatio(ratio);
-    setThumbnailConfig(prev => ({
-      ...prev,
-      ...RATIO_CONFIGS[ratio],
-    }));
-  }, []);
 
   const splitTextIntoLines = (
     text: string,
@@ -215,7 +226,16 @@ function Main() {
       for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
         const lineY = offsetY;
-        ctx.fillText(line, scaledWidth / 2, lineY);
+
+        // Calculate X position based on text alignment
+        let lineX = scaledWidth / 2; // Default center alignment
+        if (textAlign === TextAlign.left) {
+          lineX = canvasPaddingX;
+        } else if (textAlign === TextAlign.right) {
+          lineX = scaledWidth - canvasPaddingX;
+        }
+
+        ctx.fillText(line, lineX, lineY);
         offsetY += lineHeight;
       }
     },
@@ -287,6 +307,7 @@ function Main() {
       <Drawer
         values={thumbnailConfig}
         handleDownload={handleDownload}
+        handleAlignment={handleTextAlignment}
         onChange={handleInput}
       />
       <CanvasController>

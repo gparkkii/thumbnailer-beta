@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { styled } from 'styled-components';
-import { ThumbnailConfigType } from '../../@types/index.type';
+import { TextAlignType, ThumbnailConfigType } from '../../@types/index.type';
 import {
   ColorPicker,
   CTAButton,
@@ -105,6 +105,7 @@ interface DrawerProps extends DrawerInputProps {
 interface DrawerInputProps {
   values: ThumbnailConfigType;
   onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLSelectElement>;
+  handleAlignment?: (type: TextAlignType) => void;
 }
 
 const TabContentSizes = ({ values, onChange }: DrawerInputProps) => (
@@ -160,7 +161,11 @@ const TabContentText = ({ values, onChange }: DrawerInputProps) => (
   />
 );
 
-const TabContentFont = ({ values, onChange }: DrawerInputProps) => (
+const TabContentFont = ({
+  values,
+  onChange,
+  handleAlignment,
+}: DrawerInputProps) => (
   <>
     <Margin margin={-12} />
     <Dropdown
@@ -191,12 +196,17 @@ const TabContentFont = ({ values, onChange }: DrawerInputProps) => (
         expanded={{ onClick: undefined, ref: undefined }}
         name="fontColor"
       />
-      <TextAlignment />
+      <TextAlignment value={values.textAlign} onClick={handleAlignment} />
     </InputWrapper>
   </>
 );
 
-const Drawer = ({ values, handleDownload, onChange }: DrawerProps) => {
+const Drawer = ({
+  values,
+  handleDownload,
+  handleAlignment,
+  onChange,
+}: DrawerProps) => {
   return (
     <Wrapper>
       <TabWrapper>
@@ -210,7 +220,11 @@ const Drawer = ({ values, handleDownload, onChange }: DrawerProps) => {
           <TabContentText values={values} onChange={onChange} />
         </Tab>
         <Tab label="텍스트">
-          <TabContentFont values={values} onChange={onChange} />
+          <TabContentFont
+            values={values}
+            onChange={onChange}
+            handleAlignment={handleAlignment}
+          />
         </Tab>
       </TabWrapper>
       <ButtonWrapper>

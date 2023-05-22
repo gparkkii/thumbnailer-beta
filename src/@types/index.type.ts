@@ -1,3 +1,11 @@
+export const TextAlign = {
+  left: 'left',
+  center: 'center',
+  right: 'right',
+} as const;
+
+export type TextAlignType = keyof typeof TextAlign;
+
 export type ThumbnailConfigType = {
   zoomLevel: number;
   canvasWidth: number;
@@ -10,5 +18,5 @@ export type ThumbnailConfigType = {
   fontFamily: string;
   fontWeight: string;
   fontColor: string;
-  textAlign: CanvasTextAlign;
+  textAlign: TextAlignType;
 };

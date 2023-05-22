@@ -1,5 +1,6 @@
 import React from 'react';
 import { styled } from 'styled-components';
+import { TextAlign, TextAlignType } from '../../@types/index.type';
 import Icon from '../Common/Icon';
 
 const ToggleWrapper = styled.div`
@@ -38,20 +39,32 @@ interface TextAlignmentStyledProps {
 }
 
 interface TextAlignmentProps {
-  value?: string;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  value?: TextAlignType;
+  onClick?: (type: TextAlignType) => void;
 }
 
 const TextAlignment = ({ value, onClick }: TextAlignmentProps) => {
   return (
     <ToggleWrapper>
-      <Button name="left" onClick={onClick} selected={value === 'left'}>
+      <Button
+        name={TextAlign.left}
+        onClick={() => onClick && onClick(TextAlign.left)}
+        selected={value === TextAlign.left}
+      >
         <Icon type="alignLeft" size="md" alt="text-align-left" />
       </Button>
-      <Button name="center" onClick={onClick} selected={value === 'center'}>
+      <Button
+        name={TextAlign.center}
+        onClick={() => onClick && onClick(TextAlign.center)}
+        selected={value === TextAlign.center}
+      >
         <Icon type="alignCenter" size="md" alt="text-align-center" />
       </Button>
-      <Button name="right" onClick={onClick} selected={value === 'right'}>
+      <Button
+        name={TextAlign.right}
+        onClick={() => onClick && onClick(TextAlign.right)}
+        selected={value === TextAlign.right}
+      >
         <Icon type="alignRight" size="md" alt="text-align-right" />
       </Button>
     </ToggleWrapper>
