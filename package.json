@@ -6,7 +6,7 @@
     "email": "jyp933@gmail.com",
     "url": "https://github.com/gparkkii/thumbnailer"
   },
-  "version": "0.1.0",
+  "version": "0.1.0-beta",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
