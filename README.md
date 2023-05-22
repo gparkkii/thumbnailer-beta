@@ -1,46 +1,35 @@
-# Getting Started with Create React App
+# Thumbnailer 베타 버전 
+[썸네일러](https://thumbnailer.netlify.app/) v0.1.0-beta  
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 업데이트 로그
 
-## Available Scripts
+썸네일러 서비스의 베타 버전을 출시했습니다. 썸네일러를 통해 다양한 커스텀 옵션을 통해 개인적으로 꾸며진 썸네일을 생성하고 다운로드할 수 있습니다. 
 
-In the project directory, you can run:
+이번 베타 버전에는 다음과 같은 주요 기능과 업데이트가 포함되어 있습니다:
 
-### `npm start`
+1. **넓이와 높이 지정:** 원하는 썸네일 크기를 지정하여 생성할 수 있습니다.
+2. **패딩 설정:** 생성된 썸네일에 패딩을 추가하여 디자인을 더욱 개성적으로 표현할 수 있습니다. 캔버스 최대 너비와 높이 내에서 패딩을 유지합니다.
+3. **배경색 지정:** 썸네일의 배경색을 원하는 색상으로 지정할 수 있습니다. 다양한 색상 옵션을 통해 썸네일에 적합한 배경을 선택할 수 있습니다.
+4. **텍스트 커스터마이징:** 원하는 문구, 폰트 패밀리, 폰트 크기, 폰트 굵기, 폰트 색상, 텍스트 정렬 등을 자유롭게 조합하여 썸네일에 텍스트를 추가할 수 있습니다. 다양한 스타일과 레이아웃을 통해 독창적인 썸네일을 만들어보세요.
+5. **Zoom Controller:** 넓이와 높이가 디바이스 비율을 초과하는 경우, 줌 인 및 줌 아웃 기능을 통해 썸네일의 비율을 조정할 수 있습니다. 다운로드 시에는 원본 크기를 유지합니다. 세밀한 조정을 통해 완벽한 썸네일을 만들어보세요.
+6. **Ratio Controller:** 편리한 버튼 클릭으로 데스크탑, 태블릿, 모바일 등 각각의 썸네일 비율을 손쉽게 지정할 수 있습니다. 다양한 디바이스에 최적화된 썸네일을 쉽게 만들어보세요.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 업데이트 예정
+**[1차 스프린트] (업데이트 시기: ~ 1주이내)**  
+1. 모바일 최적화
+2. SEO 적용
+3. 배경 그라데이션 및 이미지 업로드 지원  
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+**[2차 스프린트] (업데이트 시기: 미정)**  
+1. 소개 및 FAQ 페이지. 
+2. 배경 랜덤 생성 및 배경 패턴 지원
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 문의
 
-### `npm run build`
+프로젝트에 관련된 문의 사항이나 버그 리포트는 [jyp933@gmail.com](mailto:jyp933@gmail.com)으로 연락해 주세요. 기타 기여나 제안 사항도 환영합니다.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+© 2023 [gparkkii](https://github.com/gparkkii). All rights reserved.
