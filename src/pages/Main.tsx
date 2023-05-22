@@ -139,6 +139,42 @@ function Main() {
     }));
   }, []);
 
+  const splitTextIntoLines = (
+    text: string,
+    context: CanvasRenderingContext2D,
+    maxWidth: number,
+    maxHeight: number,
+    paddingX: number,
+    paddingY: number,
+    lineHeight: number,
+  ): string[] => {
+    const words = text.split(' ');
+    const lines: string[] = [];
+    let currentLine = '';
+
+    for (let i = 0; i < words.length; i++) {
+      const word = words[i];
+      const { width } = context.measureText(`${currentLine} ${word}`);
+
+      if (width < maxWidth - paddingX * 2) {
+        currentLine += (currentLine === '' ? '' : ' ') + word;
+      } else {
+        lines.push(currentLine.trim());
+        currentLine = word;
+      }
+
+      if (lines.length * lineHeight > maxHeight - paddingY * 2) {
+        break;
+      }
+    }
+
+    if (currentLine !== '') {
+      lines.push(currentLine.trim());
+    }
+
+    return lines;
+  };
+
   const drawThumbnail = useCallback(
     (
       ctx: CanvasRenderingContext2D,
@@ -157,12 +193,31 @@ function Main() {
       const scaledFontSize =
         zoomedFontSize * (canvasWidth / (canvasWidth * zoomLevel));
       const finalFontSize = applyScaling ? scaledFontSize : zoomedFontSize;
+
       ctx.font = `${fontWeight} ${finalFontSize}px ${fontFamily}`;
       ctx.fillStyle = fontColor;
       ctx.textAlign = textAlign;
-      ctx.textBaseline = 'middle';
+      ctx.textBaseline = 'top';
 
-      ctx.fillText(thumbnailTitle, scaledWidth / 2, scaledHeight / 2);
+      const lineHeight = finalFontSize * 1.2;
+
+      const lines = splitTextIntoLines(
+        thumbnailTitle,
+        ctx,
+        scaledWidth,
+        scaledHeight,
+        canvasPaddingX,
+        canvasPaddingY,
+        lineHeight,
+      );
+
+      let offsetY = scaledHeight / 2 - (lines.length * lineHeight) / 2;
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        const lineY = offsetY;
+        ctx.fillText(line, scaledWidth / 2, lineY);
+        offsetY += lineHeight;
+      }
     },
     [
       backgroundColor,
@@ -174,6 +229,8 @@ function Main() {
       textAlign,
       thumbnailTitle,
       zoomLevel,
+      canvasPaddingX,
+      canvasPaddingY,
     ],
   );
 

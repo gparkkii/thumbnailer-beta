@@ -126,8 +126,18 @@ const TabContentSizes = ({ values, onChange }: DrawerInputProps) => (
       />
     </InputWrapper>
     <InputWrapper>
-      <LabelInput label="PX" name="canvasPaddingX" placeholder="0" />
-      <LabelInput label="PY" name="canvasPaddingY" placeholder="0" />
+      <LabelInput
+        label="PX"
+        name="canvasPaddingX"
+        placeholder="0"
+        onChange={onChange}
+      />
+      <LabelInput
+        label="PY"
+        name="canvasPaddingY"
+        placeholder="0"
+        onChange={onChange}
+      />
     </InputWrapper>
   </>
 );
