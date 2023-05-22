@@ -8,8 +8,13 @@ import React, {
 } from 'react';
 import { styled } from 'styled-components';
 import { ThumbnailConfigType } from '../@types/index.type';
-import RatioController from '../components/Controls/RatioController';
-import { Canvas, Drawer, ZoomController } from 'components';
+import {
+  Canvas,
+  Drawer,
+  ZoomController,
+  RatioController,
+  Ratio,
+} from 'components';
 
 const Container = styled.div`
   position: relative;
@@ -57,11 +62,11 @@ const THUMBNAIL_INITIAL_SETTINGS: ThumbnailConfigType = {
   canvasPaddingX: 0,
   canvasPaddingY: 0,
   thumbnailTitle: '문구를 입력해주세요.',
-  backgroundColor: '#9CD4E6',
+  backgroundColor: '#b7e2f0',
   fontSize: '40px',
   fontFamily: 'Noto Sans',
   fontWeight: 'Bold',
-  fontColor: '#FFFFFF',
+  fontColor: '#000000',
   textAlign: 'center',
 };
 
@@ -110,6 +115,37 @@ function Main() {
     },
     [],
   );
+
+  const handleRatio = useCallback((ratio: Ratio) => {
+    switch (ratio) {
+      case Ratio.DESKTOP:
+        setThumnbnailConfig(prev => ({
+          ...prev,
+          canvasWidth: 1920,
+          canvasHeight: 1080,
+          fontSize: '48px',
+        }));
+        break;
+      case Ratio.TABLET:
+        setThumnbnailConfig(prev => ({
+          ...prev,
+          canvasWidth: 768,
+          canvasHeight: 1024,
+          fontSize: '32px',
+        }));
+        break;
+      case Ratio.MOBILE:
+        setThumnbnailConfig(prev => ({
+          ...prev,
+          canvasWidth: 360,
+          canvasHeight: 640,
+          fontSize: '24px',
+        }));
+        break;
+      default:
+        break;
+    }
+  }, []);
 
   const drawThumbnail = useCallback(
     (
@@ -209,7 +245,7 @@ function Main() {
       <CanvasController>
         <ZoomController handleZoom={handleZoom} value={zoomLevel} />
         <p>|</p>
-        <RatioController />
+        <RatioController onClick={handleRatio} />
       </CanvasController>
     </Container>
   );

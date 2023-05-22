@@ -11,12 +11,28 @@ const RatioContainer = styled.div`
   gap: 20px;
 `;
 
-const RatioController = () => {
+export enum Ratio {
+  DESKTOP = '16:9',
+  TABLET = '4:3',
+  MOBILE = '9:16',
+}
+
+interface RatioControllerProps {
+  onClick: (ratio: Ratio) => void;
+}
+
+const RatioController = ({ onClick }: RatioControllerProps) => {
   return (
     <RatioContainer>
-      <Icon type="desktop" alt="desktop" size="lg" />
-      <Icon type="tablet" alt="tablet" size="lg" />
-      <Icon type="mobile" alt="mobile" size="lg" />
+      <button onClick={() => onClick(Ratio.DESKTOP)}>
+        <Icon type="desktop" alt="desktop" size="lg" />
+      </button>
+      <button onClick={() => onClick(Ratio.TABLET)}>
+        <Icon type="tablet" alt="tablet" size="lg" />
+      </button>
+      <button onClick={() => onClick(Ratio.MOBILE)}>
+        <Icon type="mobile" alt="mobile" size="lg" />
+      </button>
     </RatioContainer>
   );
 };
