@@ -4,6 +4,8 @@ import { Content } from '../styles/typography.styles';
 import { Icon } from 'components';
 
 const StyledHeader = styled.header`
+  position: fixed;
+  z-index: 999999;
   display: flex;
   flex-direction: row;
   align-items: center;

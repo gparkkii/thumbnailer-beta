@@ -9,7 +9,8 @@ interface BaseLayoutProps {
 
 const Container = styled.main`
   width: 100vw;
-  height: calc(100vh - 64px); // 100vh - header height
+  height: 100vh;
+  padding-top: 64px;
   background-color: ${({ theme }) => theme.colors.gray100};
 `;
 

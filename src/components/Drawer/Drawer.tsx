@@ -1,7 +1,6 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import { TextAlignType, ThumbnailConfigType } from '../../@types/index.type';
-import { mediaQuery } from '../../theme/breakpoints';
 import {
   ColorPicker,
   CTAButton,
@@ -11,11 +10,14 @@ import {
   TextInput,
   Tab,
 } from 'components';
+import useWindowSize from 'hooks/useWindowSize';
+import { breakpoints, mediaQuery } from 'theme/breakpoints';
 
 const MobileDrawer = styled.button`
   display: none;
   ${mediaQuery.md} {
     position: fixed;
+    z-index: 9999;
     top: 64px;
 
     display: flex;
@@ -28,7 +30,7 @@ const MobileDrawer = styled.button`
   }
 `;
 
-const Wrapper = styled.div`
+const AnimatedWrapper = styled.div<{ open?: boolean }>`
   position: fixed;
   right: 0;
   z-index: 999;
@@ -48,12 +50,41 @@ const Wrapper = styled.div`
 
   ${mediaQuery.md} {
     position: absolute;
-    display: none;
-    top: 0;
+    top: ${({ open }) => (open ? '40px' : '-100%')};
     bottom: 0;
     right: 0;
     width: 100%;
-    height: 100%;
+    height: calc(100% - 40px);
+
+    animation: ${({ open }) => (open ? 'slideDown' : 'slideUp')} 0.3s
+      ease-in-out forwards;
+    animation-delay: 0s;
+
+    @keyframes slideDown {
+      0% {
+        display: flex;
+        top: -100%;
+        opacity: 0;
+      }
+      100% {
+        display: flex;
+        top: 40px;
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideUp {
+      0% {
+        display: flex;
+        top: 40px;
+        opacity: 1;
+      }
+      100% {
+        display: none;
+        top: -100%;
+        opacity: 0;
+      }
+    }
   }
 `;
 
@@ -234,10 +265,18 @@ const Drawer = ({
   handleAlignment,
   onChange,
 }: DrawerProps) => {
+  const [openDrawer, setOpenDrawer] = useState(false);
+
   return (
     <>
-      <MobileDrawer>썸네일 꾸미기</MobileDrawer>
-      <Wrapper>
+      <MobileDrawer
+        onClick={() => {
+          setOpenDrawer(!openDrawer);
+        }}
+      >
+        {openDrawer ? 'x' : '썸네일 꾸미기'}
+      </MobileDrawer>
+      <AnimatedWrapper open={openDrawer}>
         <TabWrapper>
           <Tab label="크기">
             <TabContentSizes values={values} onChange={onChange} />
@@ -259,7 +298,7 @@ const Drawer = ({
         <ButtonWrapper>
           <CTAButton label="다운로드" onClick={handleDownload} />
         </ButtonWrapper>
-      </Wrapper>
+      </AnimatedWrapper>
     </>
   );
 };
