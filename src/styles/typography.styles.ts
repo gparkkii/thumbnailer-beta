@@ -15,8 +15,8 @@ export const Title = styled.h3<FontColorStyledProps>`
 `;
 
 export const Subtitle = styled.h6<FontColorStyledProps>`
-  font-family: 'LINESeedKR';
-  font-weight: 700;
+  font-family: 'Pretendard';
+  font-weight: 600;
   font-size: 16px;
   line-height: 21px;
   color: ${({ theme, textcolor }) =>

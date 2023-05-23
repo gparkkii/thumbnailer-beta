@@ -4,7 +4,6 @@ import { TextAlignType, ThumbnailConfigType } from '../../@types/index.type';
 import { Body } from '../../styles/typography.styles';
 import {
   ColorPicker,
-  CTAButton,
   Dropdown,
   LabelInput,
   TextAlignment,
@@ -117,14 +116,6 @@ const InputWrapper = styled.div<{ gap?: number }>`
   gap: ${({ gap = 24 }) => `${gap}px`};
 `;
 
-const ButtonWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  padding: 0px 20px;
-  margin-top: 32px;
-`;
-
 const Margin = styled.div<{ margin: number }>`
   margin-top: ${({ margin }) => margin}px;
   height: 1px;
@@ -164,17 +155,13 @@ const FONT_SIZE_OPTION = [
   { label: '8px', option: '8px' },
 ];
 
-interface DrawerProps extends DrawerInputProps {
-  handleDownload: React.MouseEventHandler<HTMLButtonElement>;
-}
-
-interface DrawerInputProps {
+interface DrawerProps {
   values: ThumbnailConfigType;
   onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLSelectElement>;
   handleAlignment?: (type: TextAlignType) => void;
 }
 
-const TabContentSizes = ({ values, onChange }: DrawerInputProps) => (
+const TabContentSizes = ({ values, onChange }: DrawerProps) => (
   <>
     <InputWrapper>
       <LabelInput
@@ -209,7 +196,7 @@ const TabContentSizes = ({ values, onChange }: DrawerInputProps) => (
   </>
 );
 
-const TabContentBackground = ({ values, onChange }: DrawerInputProps) => (
+const TabContentBackground = ({ values, onChange }: DrawerProps) => (
   <ColorPicker
     expanded={{ onClick: undefined, ref: undefined }}
     name="backgroundColor"
@@ -218,7 +205,7 @@ const TabContentBackground = ({ values, onChange }: DrawerInputProps) => (
   />
 );
 
-const TabContentText = ({ values, onChange }: DrawerInputProps) => (
+const TabContentText = ({ values, onChange }: DrawerProps) => (
   <TextInput
     value={values.thumbnailTitle}
     name="thumbnailTitle"
@@ -227,11 +214,7 @@ const TabContentText = ({ values, onChange }: DrawerInputProps) => (
   />
 );
 
-const TabContentFont = ({
-  values,
-  onChange,
-  handleAlignment,
-}: DrawerInputProps) => (
+const TabContentFont = ({ values, onChange, handleAlignment }: DrawerProps) => (
   <>
     <Margin margin={-12} />
     <Dropdown
@@ -267,12 +250,7 @@ const TabContentFont = ({
   </>
 );
 
-const Drawer = ({
-  values,
-  handleDownload,
-  handleAlignment,
-  onChange,
-}: DrawerProps) => {
+const Drawer = ({ values, handleAlignment, onChange }: DrawerProps) => {
   const windowWidth = useWindowSize();
   const [openDrawer, setOpenDrawer] = useState(false);
 
@@ -312,9 +290,6 @@ const Drawer = ({
             />
           </Tab>
         </TabWrapper>
-        <ButtonWrapper>
-          <CTAButton label="다운로드" onClick={handleDownload} />
-        </ButtonWrapper>
       </AnimatedWrapper>
     </>
   );

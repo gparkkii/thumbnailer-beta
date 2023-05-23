@@ -8,7 +8,13 @@ import {
   ThumbnailConfigType,
 } from '../@types/index.type';
 import { mediaQuery } from '../theme/breakpoints';
-import { Canvas, Drawer, ZoomController, RatioController } from 'components';
+import {
+  Canvas,
+  Drawer,
+  ZoomController,
+  RatioController,
+  CTAButton,
+} from 'components';
 
 const Container = styled.div`
   position: relative;
@@ -22,20 +28,34 @@ const Container = styled.div`
   height: 100%;
 `;
 
-const CanvasController = styled.div`
+const ThumbnailController = styled.div`
   position: absolute;
+  width: 620px;
   bottom: 60px;
+  left: calc(
+    50% - 490px
+  ); // (620px(thumbnailcontroller width) / 2) + (360px(Drawer width) / 2) = 490px
 
-  right: 50%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
 
+  ${mediaQuery.md} {
+    left: calc(50% - 310px);
+  }
+`;
+
+const CanvasController = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   gap: 40px;
 
-  width: 420px;
-  height: 60px;
+  height: 56px;
+  padding: 0px 40px;
   border-radius: 100px;
 
   background: rgba(255, 255, 255, 0.1);
@@ -47,10 +67,12 @@ const CanvasController = styled.div`
   & p {
     color: rgba(31, 38, 135, 0.27);
   }
+`;
 
-  ${mediaQuery.md} {
-    right: calc(50% - 210px);
-  }
+const ButtonWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  width: 160px;
 `;
 
 const THUMBNAIL_INITIAL_SETTINGS: ThumbnailConfigType = {
@@ -307,15 +329,19 @@ function Main() {
       />
       <Drawer
         values={thumbnailConfig}
-        handleDownload={handleDownload}
         handleAlignment={handleTextAlignment}
         onChange={handleInput}
       />
-      <CanvasController>
-        <ZoomController handleZoom={handleZoom} value={zoomLevel} />
-        <p>|</p>
-        <RatioController ratio={activeRatio} onClick={handleRatio} />
-      </CanvasController>
+      <ThumbnailController>
+        <CanvasController>
+          <ZoomController handleZoom={handleZoom} value={zoomLevel} />
+          <p>|</p>
+          <RatioController ratio={activeRatio} onClick={handleRatio} />
+        </CanvasController>
+        <ButtonWrapper>
+          <CTAButton label="다운로드" onClick={handleDownload} />
+        </ButtonWrapper>
+      </ThumbnailController>
     </Container>
   );
 }
