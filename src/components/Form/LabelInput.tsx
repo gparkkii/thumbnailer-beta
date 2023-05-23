@@ -16,6 +16,8 @@ const LabelInputWrapper = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
+
+  width: 100%;
   padding: 0px;
 `;
 

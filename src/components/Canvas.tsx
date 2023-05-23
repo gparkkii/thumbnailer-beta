@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { styled } from 'styled-components';
+import { mediaQuery } from '../theme/breakpoints';
 
 interface CanvasProps {
   canvasRef: React.RefObject<HTMLCanvasElement>;
@@ -20,6 +21,11 @@ const CanvasContainer = styled.div`
   width: calc(100% - 360px); // - drawer width
   height: calc(100% - 64px); // - drawer height
   overflow: auto;
+
+  ${mediaQuery.md} {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 const Canvas = ({ canvasRef, width, height, zoomLevel }: CanvasProps) => {

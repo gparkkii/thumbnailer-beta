@@ -1,6 +1,7 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import { styled } from 'styled-components';
 import { TextAlignType, ThumbnailConfigType } from '../../@types/index.type';
+import { mediaQuery } from '../../theme/breakpoints';
 import {
   ColorPicker,
   CTAButton,
@@ -10,6 +11,22 @@ import {
   TextInput,
   Tab,
 } from 'components';
+
+const MobileDrawer = styled.button`
+  display: none;
+  ${mediaQuery.md} {
+    position: fixed;
+    top: 64px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 40px;
+    background-color: ${({ theme }) => theme.colors.gray400};
+  }
+`;
 
 const Wrapper = styled.div`
   position: fixed;
@@ -28,6 +45,16 @@ const Wrapper = styled.div`
   background: ${({ theme }) => theme.colors.white};
 
   overflow-y: scroll;
+
+  ${mediaQuery.md} {
+    position: absolute;
+    display: none;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 const TabWrapper = styled.div`
@@ -208,29 +235,32 @@ const Drawer = ({
   onChange,
 }: DrawerProps) => {
   return (
-    <Wrapper>
-      <TabWrapper>
-        <Tab label="크기">
-          <TabContentSizes values={values} onChange={onChange} />
-        </Tab>
-        <Tab label="배경색">
-          <TabContentBackground values={values} onChange={onChange} />
-        </Tab>
-        <Tab label="문구">
-          <TabContentText values={values} onChange={onChange} />
-        </Tab>
-        <Tab label="텍스트">
-          <TabContentFont
-            values={values}
-            onChange={onChange}
-            handleAlignment={handleAlignment}
-          />
-        </Tab>
-      </TabWrapper>
-      <ButtonWrapper>
-        <CTAButton label="다운로드" onClick={handleDownload} />
-      </ButtonWrapper>
-    </Wrapper>
+    <>
+      <MobileDrawer>썸네일 꾸미기</MobileDrawer>
+      <Wrapper>
+        <TabWrapper>
+          <Tab label="크기">
+            <TabContentSizes values={values} onChange={onChange} />
+          </Tab>
+          <Tab label="배경색">
+            <TabContentBackground values={values} onChange={onChange} />
+          </Tab>
+          <Tab label="문구">
+            <TabContentText values={values} onChange={onChange} />
+          </Tab>
+          <Tab label="텍스트">
+            <TabContentFont
+              values={values}
+              onChange={onChange}
+              handleAlignment={handleAlignment}
+            />
+          </Tab>
+        </TabWrapper>
+        <ButtonWrapper>
+          <CTAButton label="다운로드" onClick={handleDownload} />
+        </ButtonWrapper>
+      </Wrapper>
+    </>
   );
 };
 

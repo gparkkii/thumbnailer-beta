@@ -7,6 +7,7 @@ import {
   TextAlignType,
   ThumbnailConfigType,
 } from '../@types/index.type';
+import { mediaQuery } from '../theme/breakpoints';
 import { Canvas, Drawer, ZoomController, RatioController } from 'components';
 
 const Container = styled.div`
@@ -46,6 +47,10 @@ const CanvasController = styled.div`
   & p {
     color: rgba(31, 38, 135, 0.27);
   }
+
+  ${mediaQuery.md} {
+    right: calc(50% - 210px);
+  }
 `;
 
 const THUMBNAIL_INITIAL_SETTINGS: ThumbnailConfigType = {
@@ -57,7 +62,7 @@ const THUMBNAIL_INITIAL_SETTINGS: ThumbnailConfigType = {
   thumbnailTitle: '문구를 입력해주세요.',
   backgroundColor: '#b7e2f0',
   fontSize: '40px',
-  fontFamily: 'Noto Sans KR KR',
+  fontFamily: 'Noto Sans KR',
   fontWeight: 'Bold',
   fontColor: '#000000',
   textAlign: 'center',

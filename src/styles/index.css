@@ -48,6 +48,8 @@
   word-break: keep-all;
   word-wrap: break-word;
   box-sizing: border-box;
+
+  transition: all 0.25s ease-out;
 }
 
 /* CSS RESET */
