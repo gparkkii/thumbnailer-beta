@@ -1,9 +1,9 @@
 export const breakpoints = {
-  lg: '1280px',
-  md: '960px',
-  sm: '768px',
-  xs: '360px',
-};
+  lg: 1200,
+  md: 960,
+  sm: 768,
+  xs: 360,
+} as const;
 
 /**
  * @description mediaQuery
@@ -13,8 +13,8 @@ export const breakpoints = {
  * @param xs `360px`
  */
 export const mediaQuery = {
-  lg: `@media (max-width: ${breakpoints.lg})`,
-  md: `@media (max-width: ${breakpoints.md})`,
-  sm: `@media (max-width: ${breakpoints.sm})`,
-  xs: `@media (max-width: ${breakpoints.xs})`,
+  lg: `@media (max-width: ${breakpoints.lg}px)`,
+  md: `@media (max-width: ${breakpoints.md}px)`,
+  sm: `@media (max-width: ${breakpoints.sm}px)`,
+  xs: `@media (max-width: ${breakpoints.xs}px)`,
 };

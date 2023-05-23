@@ -1,6 +1,7 @@
 import React from 'react';
 import { styled } from 'styled-components';
 import { Content } from '../styles/typography.styles';
+import { mediaQuery } from '../theme/breakpoints';
 import { Icon } from 'components';
 
 const StyledHeader = styled.header`
@@ -17,6 +18,10 @@ const StyledHeader = styled.header`
 
   background: #0c0e27;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.0025);
+
+  ${mediaQuery.md} {
+    padding: 0px 24px;
+  }
 `;
 
 const LogoBox = styled.div`

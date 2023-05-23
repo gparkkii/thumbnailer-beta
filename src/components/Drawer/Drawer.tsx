@@ -1,6 +1,7 @@
 import React, { memo, useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import { TextAlignType, ThumbnailConfigType } from '../../@types/index.type';
+import { Body } from '../../styles/typography.styles';
 import {
   ColorPicker,
   CTAButton,
@@ -16,18 +17,25 @@ import { breakpoints, mediaQuery } from 'theme/breakpoints';
 const MobileDrawer = styled.button`
   display: none;
   ${mediaQuery.md} {
-    position: fixed;
+    position: absolute;
+    right: 0;
     z-index: 9999;
-    top: 64px;
+    top: 4px;
 
     display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
 
-    width: 100%;
-    height: 40px;
-    background-color: ${({ theme }) => theme.colors.gray400};
+    height: 48px;
+    padding-right: 28px;
   }
+`;
+
+const FilterButton = styled.div`
+  padding: 4px 12px;
+  border: 1px solid black;
+  border-radius: 4px;
 `;
 
 const AnimatedWrapper = styled.div<{ open?: boolean }>`
@@ -39,7 +47,7 @@ const AnimatedWrapper = styled.div<{ open?: boolean }>`
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  padding: 32px 0px;
+  padding: 40px 0px;
 
   width: 360px;
   height: calc(100% - 64px); // 100% - header height
@@ -50,11 +58,11 @@ const AnimatedWrapper = styled.div<{ open?: boolean }>`
 
   ${mediaQuery.md} {
     position: absolute;
-    top: ${({ open }) => (open ? '40px' : '-100%')};
+    top: ${({ open }) => (open ? 0 : '-100%')};
     bottom: 0;
     right: 0;
     width: 100%;
-    height: calc(100% - 40px);
+    height: 100%;
 
     animation: ${({ open }) => (open ? 'slideDown' : 'slideUp')} 0.3s
       ease-in-out forwards;
@@ -68,7 +76,7 @@ const AnimatedWrapper = styled.div<{ open?: boolean }>`
       }
       100% {
         display: flex;
-        top: 40px;
+        top: 0;
         opacity: 1;
       }
     }
@@ -76,7 +84,7 @@ const AnimatedWrapper = styled.div<{ open?: boolean }>`
     @keyframes slideUp {
       0% {
         display: flex;
-        top: 40px;
+        top: 0;
         opacity: 1;
       }
       100% {
@@ -265,7 +273,14 @@ const Drawer = ({
   handleAlignment,
   onChange,
 }: DrawerProps) => {
+  const windowWidth = useWindowSize();
   const [openDrawer, setOpenDrawer] = useState(false);
+
+  useEffect(() => {
+    if (windowWidth > breakpoints.md) {
+      setOpenDrawer(false);
+    }
+  }, [windowWidth]);
 
   return (
     <>
@@ -274,7 +289,9 @@ const Drawer = ({
           setOpenDrawer(!openDrawer);
         }}
       >
-        {openDrawer ? 'x' : '썸네일 꾸미기'}
+        <FilterButton>
+          <Body textcolor="black">{openDrawer ? '닫기' : '필터'}</Body>
+        </FilterButton>
       </MobileDrawer>
       <AnimatedWrapper open={openDrawer}>
         <TabWrapper>
