@@ -65,7 +65,7 @@ const Margin = styled.div<{ margin: number }>`
 `;
 
 const FONT_OPTION = [
-  { label: 'Noto Sans', option: 'Noto Sans' },
+  { label: 'Noto Sans KR', option: 'Noto Sans KR' },
   { label: 'Noto Serif', option: 'Noto Serif, serif' },
   { label: 'Gmarket Sans', option: 'GmarketSans' },
   { label: 'Pretendard', option: 'Pretendard' },

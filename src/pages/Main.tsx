@@ -57,7 +57,7 @@ const THUMBNAIL_INITIAL_SETTINGS: ThumbnailConfigType = {
   thumbnailTitle: '문구를 입력해주세요.',
   backgroundColor: '#b7e2f0',
   fontSize: '40px',
-  fontFamily: 'Noto Sans',
+  fontFamily: 'Noto Sans KR KR',
   fontWeight: 'Bold',
   fontColor: '#000000',
   textAlign: 'center',

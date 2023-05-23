@@ -15,7 +15,7 @@ export const Title = styled.h3<FontColorStyledProps>`
 `;
 
 export const Subtitle = styled.h6<FontColorStyledProps>`
-  font-family: 'LINE Seed Sans';
+  font-family: 'LINESeedKR';
   font-weight: 700;
   font-size: 16px;
   line-height: 21px;
@@ -33,7 +33,7 @@ export const Subtext = styled.p<FontColorStyledProps>`
 `;
 
 export const Content = styled.p<FontColorStyledProps>`
-  font-family: 'LINE Seed Sans';
+  font-family: 'LINESeedKR';
   font-weight: 400;
   font-size: 16px;
   line-height: 21px;
@@ -42,7 +42,7 @@ export const Content = styled.p<FontColorStyledProps>`
 `;
 
 export const Body = styled.p<FontColorStyledProps>`
-  font-family: 'LINE Seed Sans';
+  font-family: 'LINESeedKR';
   font-weight: 400;
   font-size: 14px;
   line-height: 19px;
@@ -51,7 +51,7 @@ export const Body = styled.p<FontColorStyledProps>`
 `;
 
 export const Caption = styled.p<FontColorStyledProps>`
-  font-family: 'LINE Seed Sans';
+  font-family: 'LINESeedKR';
   font-weight: 400;
   font-size: 12px;
   line-height: 16px;
