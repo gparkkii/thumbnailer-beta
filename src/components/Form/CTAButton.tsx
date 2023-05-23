@@ -7,7 +7,7 @@ const CTA = styled.button`
   justify-content: center;
 
   width: 100%;
-  height: 56px;
+  height: 100%;
   border-radius: 100px;
 
   background: linear-gradient(90deg, #36dbd1, transparent) #896df8;
@@ -21,12 +21,12 @@ const CTA = styled.button`
 `;
 
 interface CTAButtonProps {
-  label: string;
+  children: React.ReactNode;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-const CTAButton = ({ label, onClick }: CTAButtonProps) => {
-  return <CTA onClick={onClick}>{label}</CTA>;
+const CTAButton = ({ children, onClick }: CTAButtonProps) => {
+  return <CTA onClick={onClick}>{children}</CTA>;
 };
 
 export default CTAButton;

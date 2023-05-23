@@ -7,13 +7,16 @@ import {
   TextAlignType,
   ThumbnailConfigType,
 } from '../@types/index.type';
-import { mediaQuery } from '../theme/breakpoints';
+import useWindowSize from '../hooks/useWindowSize';
+import { Subtitle } from '../styles/typography.styles';
+import { breakpoints, mediaQuery } from '../theme/breakpoints';
 import {
   Canvas,
   Drawer,
   ZoomController,
   RatioController,
   CTAButton,
+  Icon,
 } from 'components';
 
 const Container = styled.div`
@@ -31,7 +34,7 @@ const Container = styled.div`
 const ThumbnailController = styled.div`
   position: absolute;
   width: 620px;
-  bottom: 60px;
+  bottom: 68px;
   left: calc(
     50% - 490px
   ); // (620px(thumbnailcontroller width) / 2) + (360px(Drawer width) / 2) = 490px
@@ -43,7 +46,12 @@ const ThumbnailController = styled.div`
   gap: 30px;
 
   ${mediaQuery.md} {
-    left: calc(50% - 310px);
+    width: 100%;
+    left: 0;
+    right: 0;
+  }
+  ${mediaQuery.sm} {
+    gap: 20px;
   }
 `;
 
@@ -67,12 +75,22 @@ const CanvasController = styled.div`
   & p {
     color: rgba(31, 38, 135, 0.27);
   }
+
+  ${mediaQuery.sm} {
+    gap: 16px;
+    height: 48px;
+    padding: 0px 20px;
+  }
 `;
 
 const ButtonWrapper = styled.div`
-  display: flex;
-  align-items: center;
   width: 160px;
+  height: 56px;
+
+  ${mediaQuery.sm} {
+    width: 48px;
+    height: 48px;
+  }
 `;
 
 const THUMBNAIL_INITIAL_SETTINGS: ThumbnailConfigType = {
@@ -109,6 +127,9 @@ const RATIO_CONFIGS = {
 };
 
 function Main() {
+  const windowWidth = useWindowSize();
+  const isMobile = windowWidth <= breakpoints.sm;
+
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [activeRatio, setActiveRatio] = useState<RatioType>();
   const [thumbnailConfig, setThumbnailConfig] = useState(
@@ -339,7 +360,13 @@ function Main() {
           <RatioController ratio={activeRatio} onClick={handleRatio} />
         </CanvasController>
         <ButtonWrapper>
-          <CTAButton label="다운로드" onClick={handleDownload} />
+          <CTAButton onClick={handleDownload}>
+            {isMobile ? (
+              <Icon type="download" alt="download" size="md" />
+            ) : (
+              <Subtitle textcolor="white">다운로드</Subtitle>
+            )}
+          </CTAButton>
         </ButtonWrapper>
       </ThumbnailController>
     </Container>

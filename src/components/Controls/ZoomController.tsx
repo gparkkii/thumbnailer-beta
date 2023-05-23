@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { styled } from 'styled-components';
+import { mediaQuery } from '../../theme/breakpoints';
 import Icon from '../Common/Icon';
 import { Title } from 'styles/typography.styles';
 
@@ -10,6 +11,10 @@ const ZoomContainer = styled.div`
   justify-content: flex-start;
 
   gap: 20px;
+
+  ${mediaQuery.sm} {
+    gap: 10px;
+  }
 `;
 
 interface ZoomControllerProps {

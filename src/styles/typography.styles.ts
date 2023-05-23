@@ -1,5 +1,6 @@
 import { styled } from 'styled-components';
 import { ThumbnailerColorType } from '../theme';
+import { mediaQuery } from '../theme/breakpoints';
 
 interface FontColorStyledProps {
   textcolor?: ThumbnailerColorType;
@@ -12,6 +13,10 @@ export const Title = styled.h3<FontColorStyledProps>`
   line-height: 24px;
   color: ${({ theme, textcolor }) =>
     textcolor ? theme.colors[textcolor] : theme.colors.black};
+
+  ${mediaQuery.sm} {
+    font-size: 14px;
+  }
 `;
 
 export const Subtitle = styled.h6<FontColorStyledProps>`

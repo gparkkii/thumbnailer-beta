@@ -22,8 +22,9 @@ const StyledIcon = styled.div<IconStyledProps>`
       : `width: 18px; height: 18px;`}
 `;
 
+export type IconSrcType = keyof typeof IconType;
 interface IconProps extends IconStyledProps {
-  type: keyof typeof IconType;
+  type: IconSrcType;
   alt: string;
 }
 
@@ -36,6 +37,7 @@ const IconType = {
   alignRight: '../assets/ic-align-right.svg',
   zoomIn: '../assets/ic-zoom-in.svg',
   zoomOut: '../assets/ic-zoom-out.svg',
+  download: '../assets/ic-download.svg',
 };
 
 const Icon = ({ type, alt, size = 'md' }: IconProps) => {

@@ -1,6 +1,8 @@
 import React, { memo } from 'react';
 import { styled } from 'styled-components';
 import { Ratio, RatioType } from '../../@types/index.type';
+import useWindowSize from '../../hooks/useWindowSize';
+import { breakpoints, mediaQuery } from '../../theme/breakpoints';
 
 const RatioContainer = styled.div`
   display: flex;
@@ -9,6 +11,10 @@ const RatioContainer = styled.div`
   justify-content: flex-start;
 
   gap: 20px;
+
+  ${mediaQuery.sm} {
+    gap: 10px;
+  }
 `;
 
 const StyledButton = styled.button`
@@ -22,10 +28,10 @@ interface RatioControllerProps {
   ratio?: RatioType;
 }
 
-const DesktopIcon = ({ fill }: { fill: string }) => (
+const DesktopIcon = ({ size, fill }: { size: number; fill: string }) => (
   <svg
-    width="28"
-    height="28"
+    width={size}
+    height={size}
     viewBox="0 0 40 40"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -39,10 +45,10 @@ const DesktopIcon = ({ fill }: { fill: string }) => (
   </svg>
 );
 
-const TabletIcon = ({ fill }: { fill: string }) => (
+const TabletIcon = ({ size, fill }: { size: number; fill: string }) => (
   <svg
-    width="28"
-    height="28"
+    width={size}
+    height={size}
     viewBox="0 0 40 40"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -56,10 +62,10 @@ const TabletIcon = ({ fill }: { fill: string }) => (
   </svg>
 );
 
-const MobileIcon = ({ fill }: { fill: string }) => (
+const MobileIcon = ({ size, fill }: { size: number; fill: string }) => (
   <svg
-    width="28"
-    height="28"
+    width={size}
+    height={size}
     viewBox="0 0 40 40"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -77,20 +83,26 @@ const ACTIVE_COLOR = '#000000';
 const INACTIVE_COLOR = '#757575';
 
 const RatioController = ({ ratio, onClick }: RatioControllerProps) => {
+  const windowWidth = useWindowSize();
+  const isMobile = windowWidth <= breakpoints.sm;
+
   return (
     <RatioContainer>
       <StyledButton onClick={() => onClick(Ratio.desktop)}>
         <DesktopIcon
+          size={isMobile ? 24 : 28}
           fill={ratio === Ratio.desktop ? ACTIVE_COLOR : INACTIVE_COLOR}
         />
       </StyledButton>
       <StyledButton onClick={() => onClick(Ratio.tablet)}>
         <TabletIcon
+          size={isMobile ? 24 : 28}
           fill={ratio === Ratio.tablet ? ACTIVE_COLOR : INACTIVE_COLOR}
         />
       </StyledButton>
       <StyledButton onClick={() => onClick(Ratio.mobile)}>
         <MobileIcon
+          size={isMobile ? 24 : 28}
           fill={ratio === Ratio.mobile ? ACTIVE_COLOR : INACTIVE_COLOR}
         />
       </StyledButton>
