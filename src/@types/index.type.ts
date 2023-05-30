@@ -3,7 +3,6 @@ export const TextAlign = {
   center: 'center',
   right: 'right',
 } as const;
-
 export type TextAlignType = keyof typeof TextAlign;
 
 export const Ratio = {
@@ -13,6 +12,12 @@ export const Ratio = {
 } as const;
 export type RatioType = keyof typeof Ratio;
 
+export const ColorSelector = {
+  linear: 'linear',
+  gradient: 'gradient',
+} as const;
+export type ColorSelectorType = keyof typeof ColorSelector;
+
 export type ThumbnailConfigType = {
   zoomLevel: number;
   canvasWidth: number;
@@ -20,7 +25,9 @@ export type ThumbnailConfigType = {
   canvasPaddingX: number;
   canvasPaddingY: number;
   thumbnailTitle: string;
+  colorType: ColorSelectorType;
   backgroundColor: string;
+  gradientColors: string[];
   fontSize: string;
   fontFamily: string;
   fontWeight: string;

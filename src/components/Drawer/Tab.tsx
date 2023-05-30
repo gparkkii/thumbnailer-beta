@@ -71,7 +71,7 @@ const ExpandIcon = () => {
 };
 
 const Tab = ({ label, children, randomize }: TabProps) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   return (
     <TabBox>

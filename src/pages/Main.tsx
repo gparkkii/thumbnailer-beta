@@ -1,6 +1,7 @@
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { styled } from 'styled-components';
 import {
+  ColorSelector,
   Ratio,
   RatioType,
   TextAlign,
@@ -100,12 +101,14 @@ const THUMBNAIL_INITIAL_SETTINGS: ThumbnailConfigType = {
   canvasPaddingX: 0,
   canvasPaddingY: 0,
   thumbnailTitle: '문구를 입력해주세요.',
+  colorType: ColorSelector.linear,
   backgroundColor: '#b7e2f0',
+  gradientColors: ['#b3fffe', '#81c1ea', '#bbb7f0'],
   fontSize: '40px',
   fontFamily: 'Noto Sans KR',
   fontWeight: 'Bold',
   fontColor: '#000000',
-  textAlign: 'center',
+  textAlign: TextAlign.center,
 };
 
 const RATIO_CONFIGS = {
@@ -141,7 +144,9 @@ function Main() {
     canvasHeight,
     canvasPaddingX,
     canvasPaddingY,
+    colorType,
     backgroundColor,
+    gradientColors,
     thumbnailTitle,
     fontFamily,
     fontWeight,
@@ -161,6 +166,13 @@ function Main() {
     },
     [],
   );
+
+  const handleGradientChange = (colors: string[]) => {
+    setThumbnailConfig(prevConfig => ({
+      ...prevConfig,
+      gradientColors: colors,
+    }));
+  };
 
   const handleTextAlignment = useCallback((type: TextAlignType) => {
     setThumbnailConfig(prev => ({
@@ -241,8 +253,25 @@ function Main() {
       ctx.clearRect(0, 0, scaledWidth, scaledHeight);
 
       // Draw thumbnail
-      ctx.fillStyle = backgroundColor;
-      ctx.fillRect(0, 0, scaledWidth, scaledHeight);
+      if (colorType === ColorSelector.linear) {
+        // 단색 배경
+        ctx.fillStyle = backgroundColor;
+        ctx.fillRect(0, 0, scaledWidth, scaledHeight);
+      } else if (colorType === ColorSelector.gradient) {
+        // 그라디언트 배경
+        const gradient = ctx.createLinearGradient(
+          0,
+          0,
+          scaledWidth,
+          scaledHeight,
+        );
+        gradientColors.forEach((color, index) => {
+          const stop = index / (gradientColors.length - 1);
+          gradient.addColorStop(stop, color);
+        });
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, scaledWidth, scaledHeight);
+      }
 
       const zoomedFontSize = parseInt(fontSize) * zoomLevel;
       const scaledFontSize =
@@ -285,6 +314,8 @@ function Main() {
     },
     [
       backgroundColor,
+      gradientColors,
+      colorType,
       canvasWidth,
       fontColor,
       fontFamily,
@@ -351,6 +382,7 @@ function Main() {
       <Drawer
         values={thumbnailConfig}
         handleAlignment={handleTextAlignment}
+        handleGradientChange={handleGradientChange}
         onChange={handleInput}
       />
       <ThumbnailController>

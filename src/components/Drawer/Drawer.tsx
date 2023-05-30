@@ -1,7 +1,13 @@
 import React, { memo, useEffect, useState } from 'react';
 import { styled } from 'styled-components';
-import { TextAlignType, ThumbnailConfigType } from '../../@types/index.type';
+import {
+  ColorSelector,
+  TextAlignType,
+  ThumbnailConfigType,
+} from '../../@types/index.type';
 import { Body } from '../../styles/typography.styles';
+import ColorTypeSelector from '../Form/ColorTypeSelector';
+import GradientPicker from '../Form/GradientPicker';
 import {
   ColorPicker,
   Dropdown,
@@ -115,6 +121,11 @@ const InputWrapper = styled.div<{ gap?: number }>`
   gap: ${({ gap = 24 }) => `${gap}px`};
 `;
 
+const COLOR_TYPE_OPTION = [
+  { label: '단색', option: 'linear' },
+  { label: '그라데이션', option: 'gradient' },
+];
+
 const FONT_OPTION = [
   { label: 'Noto Sans KR', option: 'Noto Sans KR' },
   { label: 'Noto Serif', option: 'Noto Serif, serif' },
@@ -153,6 +164,7 @@ interface DrawerProps {
   values: ThumbnailConfigType;
   onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLSelectElement>;
   handleAlignment?: (type: TextAlignType) => void;
+  handleGradientChange?: (colors: string[]) => void;
 }
 
 const TabContentSizes = ({ values, onChange }: DrawerProps) => (
@@ -190,13 +202,32 @@ const TabContentSizes = ({ values, onChange }: DrawerProps) => (
   </>
 );
 
-const TabContentBackground = ({ values, onChange }: DrawerProps) => (
-  <ColorPicker
-    expanded={{ onClick: undefined, ref: undefined }}
-    name="backgroundColor"
-    value={values.backgroundColor}
-    onChange={onChange}
-  />
+const TabContentBackground = ({
+  values,
+  onChange,
+  handleGradientChange,
+}: DrawerProps) => (
+  <>
+    <ColorTypeSelector
+      name="colorType"
+      value={values.colorType}
+      options={COLOR_TYPE_OPTION}
+      onChange={onChange}
+    />
+    {values.colorType === ColorSelector.linear ? (
+      <ColorPicker
+        expanded={{ onClick: undefined, ref: undefined }}
+        name="backgroundColor"
+        value={values.backgroundColor}
+        onChange={onChange}
+      />
+    ) : (
+      <GradientPicker
+        colors={values.gradientColors}
+        onChange={handleGradientChange}
+      />
+    )}
+  </>
 );
 
 const TabContentText = ({ values, onChange }: DrawerProps) => (
@@ -242,7 +273,12 @@ const TabContentFont = ({ values, onChange, handleAlignment }: DrawerProps) => (
   </>
 );
 
-const Drawer = ({ values, handleAlignment, onChange }: DrawerProps) => {
+const Drawer = ({
+  values,
+  handleAlignment,
+  handleGradientChange,
+  onChange,
+}: DrawerProps) => {
   const windowWidth = useWindowSize();
   const [openDrawer, setOpenDrawer] = useState(false);
 
@@ -269,7 +305,11 @@ const Drawer = ({ values, handleAlignment, onChange }: DrawerProps) => {
             <TabContentSizes values={values} onChange={onChange} />
           </Tab>
           <Tab label="배경색">
-            <TabContentBackground values={values} onChange={onChange} />
+            <TabContentBackground
+              values={values}
+              onChange={onChange}
+              handleGradientChange={handleGradientChange}
+            />
           </Tab>
           <Tab label="문구">
             <TabContentText values={values} onChange={onChange} />

@@ -14,6 +14,7 @@ export const color = {
   gray900: '#3B3B3B',
   primary100: '#36DBD1',
   primary200: '#2AC4B9',
+  red: '#ff675e',
 } as const;
 
 export const theme = {
