@@ -94,8 +94,8 @@ const ButtonWrapper = styled.div`
 `;
 
 const THUMBNAIL_INITIAL_SETTINGS: ThumbnailConfigType = {
-  zoomLevel: 1,
-  canvasWidth: 900,
+  zoomLevel: 0.8,
+  canvasWidth: 1200,
   canvasHeight: 600,
   canvasPaddingX: 0,
   canvasPaddingY: 0,

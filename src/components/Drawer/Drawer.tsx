@@ -46,7 +46,7 @@ const AnimatedWrapper = styled.div<{ open?: boolean }>`
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  padding: 40px 0px;
+  padding: 24px 0px;
 
   width: 360px;
   height: calc(100% - 64px); // 100% - header height
@@ -101,7 +101,6 @@ const TabWrapper = styled.div`
   align-items: flex-start;
   justify-content: flex-start;
   width: 100%;
-  gap: 24px;
 `;
 
 const InputWrapper = styled.div<{ gap?: number }>`
@@ -114,11 +113,6 @@ const InputWrapper = styled.div<{ gap?: number }>`
   padding: 0px;
 
   gap: ${({ gap = 24 }) => `${gap}px`};
-`;
-
-const Margin = styled.div<{ margin: number }>`
-  margin-top: ${({ margin }) => margin}px;
-  height: 1px;
 `;
 
 const FONT_OPTION = [
@@ -216,7 +210,6 @@ const TabContentText = ({ values, onChange }: DrawerProps) => (
 
 const TabContentFont = ({ values, onChange, handleAlignment }: DrawerProps) => (
   <>
-    <Margin margin={-12} />
     <Dropdown
       name="fontFamily"
       value={values.fontFamily}
@@ -237,7 +230,6 @@ const TabContentFont = ({ values, onChange, handleAlignment }: DrawerProps) => (
         onChange={onChange}
       />
     </InputWrapper>
-    <Margin margin={-4} />
     <InputWrapper gap={16}>
       <ColorPicker
         value={values.fontColor}
