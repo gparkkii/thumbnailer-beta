@@ -50,7 +50,6 @@ const ExpandBox = styled.div<{ isOpen: boolean }>`
 interface TabProps {
   label: string;
   children: React.ReactNode;
-  randomize?: () => void;
 }
 
 const ExpandIcon = () => {
@@ -70,7 +69,7 @@ const ExpandIcon = () => {
   );
 };
 
-const Tab = ({ label, children, randomize }: TabProps) => {
+const Tab = ({ label, children }: TabProps) => {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
